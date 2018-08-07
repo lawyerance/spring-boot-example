@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 /**
@@ -17,12 +18,15 @@ import java.util.Locale;
 @Component
 public class I18nMessageSource {
 
-    @Autowired
-    @Qualifier("customMessageSource")
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
+
+    private final HttpSession httpSession;
 
     @Autowired
-    private HttpSession httpSession;
+    public I18nMessageSource(@Qualifier("customMessageSource") MessageSource messageSource, HttpSession httpSession) {
+        this.messageSource = messageSource;
+        this.httpSession = httpSession;
+    }
 
     public String getMessage(int code) {
         return getMessage(code, getLocale());

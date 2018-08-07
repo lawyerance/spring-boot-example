@@ -41,5 +41,7 @@ dependencies {
         exclude(group: 'org.slf4j', module: 'slf4j-api')
     }
 
+    // https://mvnrepository.com/artifact/net.unicon.cas/cas-client-autoconfig-support
+    compile group: 'net.unicon.cas', name: 'cas-client-autoconfig-support', version: '1.5.0-GA'
 
 }

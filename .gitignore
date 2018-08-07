@@ -1,14 +1,21 @@
-##############################
-## Folders                  ##
-##############################
-target
+# IDEA
+.idea/
+*.iml
 
-##############################
-## Netbeans conf            ##
-##############################
-out
-build
-bin
-.idea
+# eclipse
+.settings
+.classpath
 .project
-.setting
+
+# maven
+target/
+
+# gradle
+.build
+.gradle/
+build/
+out/
+
+# log
+logs/
+*log

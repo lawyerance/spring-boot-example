@@ -1,6 +1,9 @@
 package pers.lyks.spring.example.handler;
 
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import pers.lyks.spring.example.bean.CommonResponse;
 
 /**
  * @author lawyerance
@@ -8,4 +11,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(Exception.class)
+    public CommonResponse handleException(Exception ex) {
+        CommonResponse result = new CommonResponse();
+        result.setCode(19999);
+        result.setData(ex.getCause());
+        return result;
+    }
 }

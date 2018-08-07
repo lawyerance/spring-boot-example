@@ -1,6 +1,5 @@
 package pers.lyks.spring.example.converter;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -19,17 +18,14 @@ import java.nio.charset.StandardCharsets;
  * @version 1.0 2018-08-03
  */
 public class I18nResultMessageConverter extends AbstractHttpMessageConverter<CommonResponse> {
-    private final static ObjectMapper mapper = new ObjectMapper();
-
-    static {
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
 
     private I18nMessageSource i18nMessageSource;
+    private ObjectMapper objectMapper;
 
-    public I18nResultMessageConverter(I18nMessageSource i18nMessageSource) {
+    public I18nResultMessageConverter(I18nMessageSource i18nMessageSource, ObjectMapper objectMapper) {
         super(StandardCharsets.UTF_8, MediaType.APPLICATION_JSON);
         this.i18nMessageSource = i18nMessageSource;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -48,7 +44,7 @@ public class I18nResultMessageConverter extends AbstractHttpMessageConverter<Com
             String message = i18nMessageSource.getMessage(commonResponse.getCode(), commonResponse.getParams());
             commonResponse.setMessage(message);
         }
-        outputMessage.getBody().write(mapper.writeValueAsBytes(commonResponse));
+        outputMessage.getBody().write(objectMapper.writeValueAsBytes(commonResponse));
         outputMessage.getBody().flush();
     }
 }

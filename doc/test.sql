@@ -1,0 +1,9 @@
+CREATE TABLE `employee` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `empno` varchar(120) COLLATE utf8_bin DEFAULT NULL COMMENT '雇员编号',
+  `NAME` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '雇员名',
+  `AGE` int(11) DEFAULT NULL COMMENT '年龄',
+  `BIRTHDAY` datetime DEFAULT NULL COMMENT '生日',
+  `SALARY` decimal(19,2) DEFAULT NULL COMMENT '工资',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC

@@ -5,8 +5,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -28,9 +26,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @AutoConfigureAfter(DruidDataSourceConfig.class)
-@MapperScan(basePackages = {"pers.lyks.spring.*.dao"})
+@MapperScan(basePackages = {"pers.lyks.spring.**.dao"})
 public class MybatisConfig implements TransactionManagementConfigurer {
-    private final static Logger Logger = LoggerFactory.getLogger(MybatisConfig.class);
 
     @Autowired
     @Qualifier("dataSource")
@@ -59,7 +56,7 @@ public class MybatisConfig implements TransactionManagementConfigurer {
 
             // 配置mapper的扫描，找到所有的mapper.xml映射文件
             Resource[] resources = new PathMatchingResourcePatternResolver()
-                    .getResources("classpath*:pers/lyks/spring/*/mapper/*Mapper.xml");
+                    .getResources("classpath*:pers/lyks/spring/**/mapper/**Mapper.xml");
             bean.setMapperLocations(resources);
             return bean.getObject();
         } catch (Exception e) {
