@@ -15,7 +15,7 @@ import pers.lyks.spring.example.bean.CommonResponse;
 public class IndexController extends BaseController {
 
     @RequestMapping(value = "/index/{word}", method = RequestMethod.GET)
-    public CommonResponse hello(@PathVariable String word) {
+    public CommonResponse<String> hello(@PathVariable String word) {
         if ("shit".equalsIgnoreCase(word)) {
             return error(10001, new Object[]{word});
         }

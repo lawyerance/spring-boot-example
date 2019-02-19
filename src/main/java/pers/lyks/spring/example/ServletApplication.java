@@ -1,6 +1,5 @@
 package pers.lyks.spring.example;
 
-import net.unicon.cas.client.configuration.EnableCasClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0 2018-08-03
  */
 @SpringBootApplication
-@EnableCasClient
 public class ServletApplication {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(ServletApplication.class);
