@@ -10,46 +10,46 @@ import pers.lyks.spring.example.bean.CommonResponse;
  */
 public abstract class BaseController {
     private final static int SUCCESS_CODE = 10000;
+    private final static String SUCCESS_MESSAGE = "OK";
 
-
-    protected CommonResponse success() {
-        return success(null);
+    protected <T> CommonResponse<T> success() {
+        return success(SUCCESS_MESSAGE);
     }
 
-    protected CommonResponse success(String message) {
+    protected <T> CommonResponse<T> success(String message) {
         return success(message, null);
     }
 
-    protected CommonResponse success(Object data) {
-        return success(null, data);
+    protected <T> CommonResponse<T> success(T data) {
+        return success(SUCCESS_MESSAGE, data);
     }
 
-    protected CommonResponse success(String message, Object data) {
+    protected <T> CommonResponse<T> success(String message, T data) {
         return result(SUCCESS_CODE, message, data, null);
     }
 
-    protected CommonResponse error(int code, String message) {
+    protected <T> CommonResponse<T> error(int code, String message) {
         return error(code, message, null, null);
     }
 
-    protected CommonResponse error(int code, Object[] params) {
+    protected <T> CommonResponse<T> error(int code, Object[] params) {
         return error(code, null, params);
     }
 
-    protected CommonResponse error(int code, String message, Object data) {
+    protected <T> CommonResponse<T> error(int code, String message, T data) {
         return error(code, message, data, null);
     }
 
-    protected CommonResponse error(int code, String format, Object[] params) {
+    protected <T> CommonResponse<T> error(int code, String format, Object[] params) {
         return error(code, format, null, params);
     }
 
-    protected CommonResponse error(int code, String message, Object data, Object[] params) {
+    protected <T> CommonResponse<T> error(int code, String message, T data, Object[] params) {
         return result(code, message, data, params);
     }
 
-    private CommonResponse result(int code, String message, Object data, Object[] params) {
-        CommonResponse result = new CommonResponse();
+    private <T> CommonResponse<T> result(int code, String message, T data, Object[] params) {
+        CommonResponse<T> result = new CommonResponse<>();
         result.setCode(code);
         result.setMessage(message);
         if (data != null) {

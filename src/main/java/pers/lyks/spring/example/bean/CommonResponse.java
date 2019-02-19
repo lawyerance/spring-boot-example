@@ -10,10 +10,10 @@ import java.io.Serializable;
  * @author lawyerance
  * @version 1.0 2018-08-03
  */
-public class CommonResponse implements Serializable {
+public class CommonResponse<T> implements Serializable {
     private int code;
     private String message;
-    private Object data;
+    private T data;
     @JsonIgnore
     private Object[] params;
 
@@ -33,11 +33,11 @@ public class CommonResponse implements Serializable {
         this.message = message;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
