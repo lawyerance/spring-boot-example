@@ -1,11 +1,12 @@
 package pers.lyks.spring.example.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Authorization;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import pers.lyks.spring.example.base.BaseController;
 import pers.lyks.spring.example.bean.CommonResponse;
+import pers.lyks.spring.example.strategy.CalculateContext;
+import pers.lyks.spring.example.strategy.CalculateStrategy;
 
 /**
  * @author lawyerance
@@ -20,5 +21,14 @@ public class IndexController extends BaseController {
             return error(10001, new Object[]{word});
         }
         return success(null, "hello " + word);
+    }
+
+    @Autowired
+    private CalculateContext calculateContext;
+
+    @RequestMapping(value = "/calculate", method = RequestMethod.GET)
+    public CommonResponse<Number> hello(@RequestParam("type")String type,@RequestParam("first")Number first,@RequestParam("second")Number second) {
+        CalculateStrategy strategy =  calculateContext.getInstance(type);
+        return success(null, strategy.calculate(first,second));
     }
 }
