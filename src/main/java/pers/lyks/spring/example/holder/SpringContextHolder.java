@@ -14,7 +14,25 @@ public class SpringContextHolder implements ApplicationContextAware {
         context = applicationContext;
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T getBean(String name) {
+        assertNotNullApplication();
+        return (T) context.getBean(name);
+    }
+
     public static <T> T getBean(Class<T> t) {
+        assertNotNullApplication();
         return context.getBean(t);
+    }
+
+    public static <T> T getBean(String name, Class<T> t) {
+        assertNotNullApplication();
+        return context.getBean(name, t);
+    }
+
+    private static void assertNotNullApplication() {
+        if (null == context) {
+            throw new NullPointerException("application context had not been initialized or initializing error, please check...");
+        }
     }
 }

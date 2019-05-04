@@ -1,6 +1,5 @@
 package pers.lyks.spring.example.handler;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import pers.lyks.spring.example.bean.CommonResponse;

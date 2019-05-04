@@ -2,6 +2,10 @@ package pers.lyks.spring.example.base;
 
 import pers.lyks.spring.example.bean.CommonResponse;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+
 /**
  * Common base controller, so that other all controller classes must inherit this one.
  *
@@ -26,6 +30,10 @@ public abstract class BaseController {
 
     protected <T> CommonResponse<T> success(String message, T data) {
         return result(SUCCESS_CODE, message, data, null);
+    }
+
+    protected void download(File file, HttpServletRequest request, HttpServletResponse response) {
+
     }
 
     protected <T> CommonResponse<T> error(int code, String message) {
