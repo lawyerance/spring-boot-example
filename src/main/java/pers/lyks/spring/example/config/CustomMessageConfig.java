@@ -6,10 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
-
-import java.util.Locale;
 
 /**
  * @author lawyerance
@@ -17,15 +14,15 @@ import java.util.Locale;
  */
 @Configuration
 public class CustomMessageConfig {
-    private final static Logger logger = LoggerFactory.getLogger(CustomMessageConfig.class);
-    private final static String basename = "i18n/messages";
+    private final static Logger LOGGER = LoggerFactory.getLogger(CustomMessageConfig.class);
+    private final static String BASE_NAME = "i18n/messages";
 
     @Primary
     @Bean("customMessageSource")
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        logger.info("load i18n message base name: {}", basename);
-        messageSource.setBasename(basename);
+        LOGGER.info("load i18n message base name: {}", BASE_NAME);
+        messageSource.setBasename(BASE_NAME);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheMillis(-1);
         return messageSource;

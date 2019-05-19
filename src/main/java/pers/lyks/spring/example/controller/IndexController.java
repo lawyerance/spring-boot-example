@@ -1,6 +1,5 @@
 package pers.lyks.spring.example.controller;
 
-import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pers.lyks.spring.example.base.BaseController;

@@ -56,6 +56,11 @@ public abstract class BaseController {
         return result(code, message, data, params);
     }
 
+
+    protected void upload(File file){
+
+    }
+
     private <T> CommonResponse<T> result(int code, String message, T data, Object[] params) {
         CommonResponse<T> result = new CommonResponse<>();
         result.setCode(code);

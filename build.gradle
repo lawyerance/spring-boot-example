@@ -3,7 +3,11 @@ version '1.0.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'war'
+//apply from: 'checkstyle.gradle'
+
+
 sourceCompatibility = 1.8
+
 
 ext {
     springBootVersion = '2.0.0.RELEASE'
