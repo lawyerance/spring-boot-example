@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @CalculateHandlerType("add")
-public class AddOperation implements CalculateStrategy {
+public class AddOperation implements CalculateStrategy<Double, Double> {
     @Override
-    public Number calculate(Number first, Number second) {
-        return first.doubleValue() + second.doubleValue() ;
+    public Number calculate(Double first, Double second) {
+        return first + second;
     }
 }

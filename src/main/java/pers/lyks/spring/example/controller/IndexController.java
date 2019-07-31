@@ -7,6 +7,8 @@ import pers.lyks.spring.example.bean.CommonResponse;
 import pers.lyks.spring.example.strategy.CalculateContext;
 import pers.lyks.spring.example.strategy.CalculateStrategy;
 
+import javax.annotation.Resource;
+
 /**
  * @author lawyerance
  * @version 1.0 2018-08-03
@@ -22,7 +24,7 @@ public class IndexController extends BaseController {
         return success(null, "hello " + word);
     }
 
-    @Autowired
+    @Resource
     private CalculateContext calculateContext;
 
     @RequestMapping(value = "/calculate", method = RequestMethod.GET)

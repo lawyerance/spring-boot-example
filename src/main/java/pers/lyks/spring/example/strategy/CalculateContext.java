@@ -11,7 +11,8 @@ public class CalculateContext {
         this.handlerMap = handlerMap;
     }
 
-    public CalculateStrategy getInstance(String type) {
+    @SuppressWarnings("unchecked")
+    public <F extends Number, S extends Number> CalculateStrategy<F, S> getInstance(String type) {
         Class clazz = handlerMap.get(type);
         if (null == clazz) {
             throw new IllegalArgumentException("not found handler for type: " + type);
