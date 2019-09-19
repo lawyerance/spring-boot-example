@@ -1,8 +1,9 @@
 package pers.lyks.spring.example.handler;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import pers.lyks.spring.example.bean.CommonResponse;
 
 /**
  * @author lawyerance
@@ -11,10 +12,7 @@ import pers.lyks.spring.example.bean.CommonResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public CommonResponse handleException(Exception ex) {
-        CommonResponse result = new CommonResponse();
-        result.setCode(19999);
-        result.setData(ex.getCause());
-        return result;
+    public ResponseEntity<String> handleException(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

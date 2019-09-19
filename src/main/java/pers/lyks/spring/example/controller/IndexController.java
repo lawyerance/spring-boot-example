@@ -1,9 +1,8 @@
 package pers.lyks.spring.example.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pers.lyks.spring.example.base.BaseController;
-import pers.lyks.spring.example.bean.CommonResponse;
 import pers.lyks.spring.example.strategy.CalculateContext;
 import pers.lyks.spring.example.strategy.CalculateStrategy;
 
@@ -14,22 +13,20 @@ import javax.annotation.Resource;
  * @version 1.0 2018-08-03
  */
 @RestController
-public class IndexController extends BaseController {
+public class IndexController {
 
     @RequestMapping(value = "/index/{word}", method = RequestMethod.GET)
-    public CommonResponse<String> hello(@PathVariable String word) {
-        if ("shit".equalsIgnoreCase(word)) {
-            return error(10001, new Object[]{word});
-        }
-        return success(null, "hello " + word);
+    public ResponseEntity<String> hello(@PathVariable String word) {
+
+        return new ResponseEntity<>("hello " + word, HttpStatus.OK);
     }
 
     @Resource
     private CalculateContext calculateContext;
 
     @RequestMapping(value = "/calculate", method = RequestMethod.GET)
-    public CommonResponse<Number> hello(@RequestParam("type")String type,@RequestParam("first")Number first,@RequestParam("second")Number second) {
-        CalculateStrategy strategy =  calculateContext.getInstance(type);
-        return success(null, strategy.calculate(first,second));
+    public ResponseEntity<Number> hello(@RequestParam("type") String type, @RequestParam("first") Number first, @RequestParam("second") Number second) {
+        CalculateStrategy strategy = calculateContext.getInstance(type);
+        return new ResponseEntity<>(strategy.calculate(first, second), HttpStatus.OK);
     }
 }

@@ -2,14 +2,15 @@ package pers.lyks.spring.example.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pers.lyks.spring.example.base.BaseController;
-import pers.lyks.spring.example.bean.CommonResponse;
 import pers.lyks.spring.example.service.EmployeeService;
+
+import javax.annotation.Resource;
 
 /**
  * @author lawyerance
@@ -17,15 +18,15 @@ import pers.lyks.spring.example.service.EmployeeService;
  */
 @RestController
 @RequestMapping(value = "/employee")
-@Api("员工信息")
-public class EmployeeController extends BaseController {
+@Api(value = "员工信息", tags = "employee operation")
+public class EmployeeController {
 
-    @Autowired
+    @Resource
     private EmployeeService employeeService;
 
-    @ApiOperation(value = "查看单个员工信息",notes = "通过ID查看员工信息")
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public CommonResponse get(@PathVariable long id) {
-        return success(employeeService.get(id));
+    @ApiOperation(value = "Query employee details", notes = "Obtain employee detail information according to id")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> get(@PathVariable long id) {
+        return new ResponseEntity<>(employeeService.get(id), HttpStatus.OK);
     }
 }

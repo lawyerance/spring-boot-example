@@ -1,7 +1,6 @@
 package pers.lyks.spring.example.strategy;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
@@ -34,7 +33,7 @@ public class ClassScanner implements ResourceLoaderAware {
     @SafeVarargs
     public static Set<Class<?>> scan(String[] basePackages, Class<? extends Annotation>... annotations) {
         ClassScanner sc = new ClassScanner();
-        if (ArrayUtils.isNotEmpty(annotations)) {
+        if (annotations != null) {
             for (Class annotation : annotations) {
                 sc.addIncluder(new AnnotationTypeFilter(annotation));
             }
@@ -48,8 +47,9 @@ public class ClassScanner implements ResourceLoaderAware {
 
     @SafeVarargs
     public static Set<Class<?>> scan(String basePackages, Class<? extends Annotation>... annotations) {
-        return ClassScanner.scan(StringUtils.tokenizeToStringArray(basePackages,",; \t\n"),annotations);
+        return ClassScanner.scan(StringUtils.tokenizeToStringArray(basePackages, ",; \t\n"), annotations);
     }
+
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourcePatternResolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);

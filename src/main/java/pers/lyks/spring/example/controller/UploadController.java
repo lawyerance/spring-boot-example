@@ -1,14 +1,15 @@
 package pers.lyks.spring.example.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import pers.lyks.spring.example.base.BaseController;
-import pers.lyks.spring.example.bean.CommonResponse;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,26 +20,26 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping(value = "/upload")
-public class UploadController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
+@Slf4j
+public class UploadController {
 
     private static final String DEFAULT_UPLOAD_PATH = System.getProperty("user.dir");
 
     @RequestMapping(value = "/single", method = RequestMethod.POST)
-    public CommonResponse<Boolean> upload(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Boolean> upload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return success(false);
+            return new ResponseEntity<>(false, HttpStatus.OK);
         }
         String fileName = file.getOriginalFilename();
         File dest = new File(DEFAULT_UPLOAD_PATH, fileName);
         try {
             file.transferTo(dest);
-            LOGGER.info("上传成功");
-            return success(true);
+            logger.info("上传成功");
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (IOException e) {
-            LOGGER.error(e.toString(), e);
+            logger.error(e.toString(), e);
         }
-        return success(false);
+        return new ResponseEntity<>(false, HttpStatus.OK);
 
     }
 }

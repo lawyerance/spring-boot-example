@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="pers.lyks.spring.example.dao.EmployeeDao">
+<mapper namespace="pers.lyks.spring.example.mapper.EmployeeMapper">
     <resultMap id="BaseResultMap" type="pers.lyks.spring.example.model.EmployeeModel">
         <id column="id" property="id"/>
         <result column="empno" property="empno"/>

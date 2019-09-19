@@ -5,9 +5,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -25,12 +22,10 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@AutoConfigureAfter(DruidDataSourceConfig.class)
-@MapperScan(basePackages = {"pers.lyks.spring.**.dao"})
+@MapperScan(basePackages = {"pers.lyks.spring.**.mapper"})
 public class MybatisConfig implements TransactionManagementConfigurer {
 
-    @Autowired
-    @Qualifier("dataSource")
+    @javax.annotation.Resource
     private DataSource dataSource;
 
     @Bean
