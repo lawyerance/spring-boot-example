@@ -125,12 +125,56 @@ asciidoctor {
 }
 
 jar {
+    archiveBaseName = "spring-example"
     dependsOn asciidoctor
     //将生成的html和PDF拷贝到项目中
+    dependsOn "nestedSpecs"
     from("${asciidoctor.outputDir}/html5") {
         into 'static/docs'
     }
     from("${asciidoctor.outputDir}/pdf") {
         into 'static/docs'
     }
+
+}
+
+bootJar {
+    classifier = 'boot'
+    excludes = ["*.jar"]
+    includes = ["**/*.class", "MANIFEST.MF"]
+
+    manifest {
+        attributes "Manifest-Version": 1.0,
+                'Class-Path': 'config/'
+    }
+}
+
+task nestedSpecs(type: Copy) {
+
+    into "$buildDir/explodedJar"
+
+    into('lib') {
+        from configurations.compileClasspath
+    }
+
+    into('config') {
+        from("${buildDir}/resources/main") {
+            include '**/**.*'
+        }
+    }
+
+    from("${buildDir}/libs") {
+        include '*.jar'
+    }
+
+    into('bin') {
+        from("bin")
+    }
+}
+
+task packageDistribution(type: Zip, dependsOn: jar) {
+    archiveFileName = "aaaa-re.zip"
+    destinationDirectory = file("${buildDir}/release")
+    println("publish archive")
+    from "$buildDir/toArchive"
 }
