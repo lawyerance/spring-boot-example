@@ -1,3 +1,5 @@
+import java.util.stream.Stream
+
 buildscript {
     ext {
         springBootVersion = "2.1.8.RELEASE"
@@ -125,23 +127,31 @@ asciidoctor {
 }
 
 jar {
+
     archiveBaseName = "spring-example"
     dependsOn asciidoctor
-    //将生成的html和PDF拷贝到项目中
-    dependsOn "nestedSpecs"
+
     from("${asciidoctor.outputDir}/html5") {
-        into 'static/docs'
+        into 'META-INF/resources/docs'
     }
     from("${asciidoctor.outputDir}/pdf") {
-        into 'static/docs'
+        into 'META-INF/resources/docs'
     }
 
 }
 
 bootJar {
+    archiveFileName = project.name + ".jar"
     classifier = 'boot'
     excludes = ["*.jar"]
     includes = ["**/*.class", "MANIFEST.MF"]
+
+    from("${asciidoctor.outputDir}/html5") {
+        into 'META-INF/resources/docs'
+    }
+    from("${asciidoctor.outputDir}/pdf") {
+        into 'META-INF/resources/docs'
+    }
 
     manifest {
         attributes "Manifest-Version": 1.0,
@@ -149,32 +159,52 @@ bootJar {
     }
 }
 
-task nestedSpecs(type: Copy) {
+task packageDistribution(type: Zip) {
+    dependsOn 'build'
+    boolean includeArchiveDirectory = true
+    archiveFileName = "${project.name}-${project.version}-release.zip"
+    destinationDirectory = file("${buildDir}/release")
 
-    into "$buildDir/explodedJar"
+    if (includeArchiveDirectory) {
+        String catalog = project.name
+        into("${catalog}") {
+            from("${buildDir}/libs") {
+                include "*.jar"
+            }
+        }
 
-    into('lib') {
-        from configurations.compileClasspath
-    }
+        into("${catalog}/lib") {
+            from configurations.compileClasspath
+        }
 
-    into('config') {
-        from("${buildDir}/resources/main") {
-            include '**/**.*'
+        into("${catalog}/config") {
+            from("${buildDir}/resources/main") {
+                include '**/**.*'
+            }
+        }
+        into("${catalog}/bin") {
+            from("scripts")
+        }
+    } else {
+        from("${buildDir}/libs") {
+            include "*.jar"
+        }
+
+        into('lib') {
+            from configurations.compileClasspath
+        }
+
+        into('config') {
+            from("${buildDir}/resources/main") {
+                include '**/**.*'
+            }
+        }
+        into('bin') {
+            from("scripts")
         }
     }
 
-    from("${buildDir}/libs") {
-        include '*.jar'
-    }
 
-    into('bin') {
-        from("bin")
-    }
 }
 
-task packageDistribution(type: Zip, dependsOn: jar) {
-    archiveFileName = "aaaa-re.zip"
-    destinationDirectory = file("${buildDir}/release")
-    println("publish archive")
-    from "$buildDir/toArchive"
-}
+//packageDistribution.mustRunAfter jar
