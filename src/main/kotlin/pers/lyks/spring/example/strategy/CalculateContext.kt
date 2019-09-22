@@ -6,6 +6,6 @@ class CalculateContext(private val handlerMap: Map<String, Class<out CalculateSt
 
     fun <F : Number, S : Number> getInstance(type: String): CalculateStrategy<F, S> {
         val clazz = handlerMap[type] ?: throw IllegalArgumentException("not found handler for type: $type")
-        return SpringContextHolder.getBean<Any>(clazz) as CalculateStrategy<*, *>
+        return SpringContextHolder.getBean(clazz) as CalculateStrategy<F, S>;
     }
 }

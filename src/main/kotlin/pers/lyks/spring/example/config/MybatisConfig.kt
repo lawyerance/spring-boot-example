@@ -23,18 +23,18 @@ import javax.sql.DataSource
 @Configuration
 @EnableTransactionManagement
 @MapperScan(basePackages = ["pers.lyks.spring.**.mapper"])
-class MybatisConfig : TransactionManagementConfigurer {
+open class MybatisConfig : TransactionManagementConfigurer {
 
     @javax.annotation.Resource
     private val dataSource: DataSource? = null
 
     @Bean
     override fun annotationDrivenTransactionManager(): PlatformTransactionManager {
-        return DataSourceTransactionManager(dataSource)
+        return DataSourceTransactionManager(dataSource as DataSource)
     }
 
     @Bean(name = ["sqlSessionFactory"])
-    fun createSqlSessionFactory(): SqlSessionFactory? {
+    open fun createSqlSessionFactory(): SqlSessionFactory? {
         val bean = SqlSessionFactoryBean()
         if (null == dataSource) {
             throw NullPointerException("The dataSource must not be null")
@@ -60,7 +60,7 @@ class MybatisConfig : TransactionManagementConfigurer {
     }
 
     @Bean
-    fun sqlSessionTemplate(sqlSessionFactory: SqlSessionFactory): SqlSession {
+    open fun sqlSessionTemplate(sqlSessionFactory: SqlSessionFactory): SqlSession {
         return SqlSessionTemplate(sqlSessionFactory)
     }
 }

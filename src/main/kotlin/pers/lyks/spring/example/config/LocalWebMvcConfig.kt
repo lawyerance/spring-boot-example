@@ -15,7 +15,7 @@ import pers.lyks.spring.example.handler.I18nMessageSource
  * @version 1.0 2018-08-03
  */
 @Configuration
-class LocalWebMvcConfig : WebMvcConfigurer {
+open class LocalWebMvcConfig : WebMvcConfigurer {
     @Autowired
     private val mappingJackson2HttpMessageConverter: MappingJackson2HttpMessageConverter? = null
 
@@ -23,6 +23,6 @@ class LocalWebMvcConfig : WebMvcConfigurer {
     private val i18nMessageSource: I18nMessageSource? = null
 
     override fun configureMessageConverters(converters: MutableList<HttpMessageConverter<*>>) {
-        converters.add(0, I18nResultMessageConverter(i18nMessageSource, mappingJackson2HttpMessageConverter!!.objectMapper))
+        i18nMessageSource?.let { I18nResultMessageConverter(it, mappingJackson2HttpMessageConverter!!.objectMapper) }?.let { converters.add(0, it) }
     }
 }

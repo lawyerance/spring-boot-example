@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @CalculateHandlerType("add")
-class AddOperation : CalculateStrategy<Double, Double> {
+class AddOperation : CalculateStrategy<Double?, Double?> {
     override fun calculate(first: Double?, second: Double?): Number {
         return first!! + second!!
     }

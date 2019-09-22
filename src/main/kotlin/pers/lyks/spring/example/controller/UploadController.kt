@@ -1,6 +1,5 @@
 package pers.lyks.spring.example.controller
 
-import lombok.extern.slf4j.Slf4j
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -19,11 +18,11 @@ import java.io.IOException
  * @version 1.0 2019-05-18
  */
 @RestController
-@RequestMapping(value = "/upload")
-@Slf4j
+@RequestMapping(value = ["/upload"])
 class UploadController {
+    private val logger: Logger = LoggerFactory.getLogger(UploadController::class.java)
 
-    @RequestMapping(value = "/single", method = [RequestMethod.POST])
+    @RequestMapping(value = ["/single"], method = [RequestMethod.POST])
     fun upload(@RequestParam("file") file: MultipartFile): ResponseEntity<Boolean> {
         if (file.isEmpty) {
             return ResponseEntity(false, HttpStatus.OK)

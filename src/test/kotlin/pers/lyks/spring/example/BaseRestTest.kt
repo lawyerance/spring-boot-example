@@ -14,22 +14,23 @@ import org.springframework.web.context.WebApplicationContext
 import javax.annotation.Resource
 
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration
+import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 
 /**
  * @author lawyerance
  * @version 1.0 2019-09-19
  */
-
 @RunWith(SpringRunner::class)
 @SpringBootTest
 abstract class BaseRestTest {
     @Rule
+    @JvmField
     var restDocumentation = JUnitRestDocumentation()
 
     @Resource
     private val context: WebApplicationContext? = null
 
-    protected var mockMvc: MockMvc
+    protected lateinit var mockMvc: MockMvc;
 
     @Before
     fun before() {

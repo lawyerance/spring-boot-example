@@ -17,12 +17,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
  */
 @Configuration
 @EnableSwagger2
-class SwaggerConfig {
+open class SwaggerConfig {
     @Value("\${springfox.swagger.enabled}")
     private val enable: Boolean = false
 
     @Bean
-    fun createRestApi(): Docket {
+    open fun createRestApi(): Docket {
         return Docket(DocumentationType.SWAGGER_2)
                 .enable(enable)
                 .apiInfo(apiInfo())

@@ -13,7 +13,7 @@ class CalculateHandlerProcessor : BeanFactoryPostProcessor {
     override fun postProcessBeanFactory(beanFactory: ConfigurableListableBeanFactory) {
         val map = Maps.newHashMap<String, Class<out CalculateStrategy<*, *>>>()
         ClassScanner.scan(CALCULATE_HANDLER_PACKAGE, CalculateHandlerType::class.java).forEach { clazz ->
-            val type = clazz.getAnnotation(CalculateHandlerType::class.java).value()
+            val type = clazz.getAnnotation(CalculateHandlerType::class.java).value
             map[type] = clazz as Class<out CalculateStrategy<*, *>>
         }
         val context = CalculateContext(map)

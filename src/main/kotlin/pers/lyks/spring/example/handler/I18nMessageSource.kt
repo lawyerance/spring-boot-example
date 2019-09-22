@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component
 import org.springframework.web.servlet.i18n.SessionLocaleResolver
 
 import javax.servlet.http.HttpSession
-import java.text.SimpleDateFormat
 import java.util.Locale
 
 /**
@@ -24,29 +23,28 @@ constructor(@param:Qualifier("customMessageSource") private val messageSource: M
             LocaleContextHolder.getLocale()
         } else httpSession.getAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME) as Locale
 
-    @JvmOverloads
-    fun getMessage(code: Int, locale: Locale = locale): String? {
-        return getMessage(code, null, locale)
+    fun getMessage(code: Int, locale: Locale): String? {
+        return getMessage(code, null, null, locale)
     }
 
-    fun getMessage(code: Int, args: Array<Any>?, locale: Locale): String? {
-        return getMessage(code, args, null, locale)
-    }
+//    fun getMessage(code: Int, args: Array<Any>?, locale: Locale): String? {
+//        return getMessage(code, args, null, locale)
+//    }
 
 
     @JvmOverloads
-    fun getMessage(code: Int, args: Array<Any>?, defaultValue: String? = null, locale: Locale = locale): String? {
-        return getMessage(merge(code), args, defaultValue, locale)
+    fun getMessage(code: Int, args: Array<Any>?, defaultValue: String? = null, locale: Locale): String? {
+        return resolveMessage(merge(code), args, defaultValue, locale)
     }
 
     private fun merge(code: Int): String {
         return "code.$code"
     }
 
-    private fun getMessage(code: String, args: Array<Any>?, defaultValue: String?, locale: Locale): String? {
+    private fun resolveMessage(code: String, args: Array<Any>?, defaultValue: String?, locale: Locale): String? {
         var args = args
         if (null == args) {
-            args = arrayOfNulls(0)
+            args = arrayOf()
         }
         return if (null == defaultValue) {
             messageSource.getMessage(code, args, locale)

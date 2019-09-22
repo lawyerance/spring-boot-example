@@ -2,16 +2,11 @@ package pers.lyks.spring.example
 
 import org.junit.Test
 import org.springframework.http.MediaType
-import org.springframework.mock.web.MockHttpServletResponse
-import org.springframework.test.web.servlet.MvcResult
-
-import java.io.BufferedWriter
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
-
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 /**
  * @author lawyerance
