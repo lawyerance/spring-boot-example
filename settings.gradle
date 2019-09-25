@@ -1,2 +1,10 @@
+
+include 'mybatis'
+include 'checkstyle'
+include 'distribution-asciidoctor'
+
 rootProject.name = 'spring-boot-example'
+rootProject.children.each {project ->
+    project.buildFileName = "${project.name}.gradle"
+}
 

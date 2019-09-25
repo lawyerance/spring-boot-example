@@ -1,12 +1,5 @@
-import java.util.stream.Stream
-
 buildscript {
-    ext {
-        springBootVersion = "2.1.8.RELEASE"
-        springDependencyVersion = "1.0.8.RELEASE"
-        asciidoctorVersion = "1.5.8"
-        swagger2markupVersion = "1.3.1"
-    }
+
     repositories {
         mavenLocal()
         jcenter()
@@ -23,17 +16,13 @@ buildscript {
         classpath "org.kordamp.gradle:livereload-gradle-plugin:0.2.1"
     }
 }
-apply plugin: "org.springframework.boot"
-apply plugin: "io.spring.dependency-management"
+
 apply plugin: 'org.asciidoctor.convert'
-apply plugin: 'io.github.swagger2markup'
-apply plugin: 'java'
 apply plugin: 'idea'
 
 group 'pers.lyks.spring.boot'
 version '1.0.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
 
 idea {
     module {
@@ -43,168 +32,34 @@ idea {
 }
 
 
-ext {
-    springBootVersion = '2.1.8.RELEASE'
-    springRestdocsVersion = '2.0.3.RELEASE'
+subprojects {
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: 'java'
 
-    swaggerOutputDir = file("build/swagger")
-    asciiDocOutputDir = file("build/asciidoc/generated")
-    snippetsOutputDir = file("build/asciidoc/snippets")
-}
-
-ext {
-    swaggerVersion = "2.9.2"
-}
-
-repositories {
-    mavenLocal()
-    maven { url 'http://repo.spring.io/plugins-release/' }
-    mavenCentral()
-}
-
-
-dependencies {
-    compileOnly 'org.projectlombok:lombok'
-
-    annotationProcessor 'org.projectlombok:lombok'
-
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-
-    asciidoctor "org.springframework.restdocs:spring-restdocs-asciidoctor:$springRestdocsVersion"
-
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
-
-    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.1'
-
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swaggerVersion}"
-
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: "${swaggerVersion}"
-
-    compileOnly(group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3') {
-        exclude(group: 'org.slf4j', module: 'slf4j-api')
-    }
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
-}
-
-
-test {
-    systemProperty 'io.springfox.staticdocs.outputDir', swaggerOutputDir
-    systemProperty 'io.springfox.staticdocs.snippetsOutputDir', snippetsOutputDir
-}
-
-convertSwagger2markup {
-    dependsOn test
-    swaggerInput "${swaggerOutputDir}/swagger.json"
-    outputDir asciiDocOutputDir
-    config = ['swagger2markup.markupLanguage': 'ASCIIDOC',
-              'swagger2markup.pathsGroupedBy': 'TAGS']
-}
-
-asciidoctorj {
-    version = '1.5.5'
-}
-
-asciidoctor {
-    dependsOn convertSwagger2markup
-    sources {
-        include 'index.adoc'
-    }
-    backends = ['html5', 'pdf']
-    attributes = [
-            doctype    : 'book',
-            toc        : 'left',
-            toclevels  : '3',
-            numbered   : '',
-            sectlinks  : '',
-            sectanchors: '',
-            hardbreaks : '',
-            generated  : asciiDocOutputDir
-    ]
-}
-
-jar {
-
-    archiveBaseName = "spring-example"
-    dependsOn asciidoctor
-
-    from("${asciidoctor.outputDir}/html5") {
-        into 'META-INF/resources/docs'
-    }
-    from("${asciidoctor.outputDir}/pdf") {
-        into 'META-INF/resources/docs'
+    repositories {
+        mavenLocal()
+        maven { url 'http://repo.spring.io/plugins-release/' }
+        mavenCentral()
     }
 
-}
 
-bootJar {
-    archiveFileName = project.name + ".jar"
-    classifier = 'boot'
-    excludes = ["*.jar"]
-    includes = ["**/*.class", "MANIFEST.MF"]
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
 
-    from("${asciidoctor.outputDir}/html5") {
-        into 'META-INF/resources/docs'
-    }
-    from("${asciidoctor.outputDir}/pdf") {
-        into 'META-INF/resources/docs'
-    }
+        annotationProcessor 'org.projectlombok:lombok'
 
-    manifest {
-        attributes "Manifest-Version": 1.0,
-                'Class-Path': 'config/'
-    }
-}
+        implementation 'org.springframework.boot:spring-boot-starter-web'
 
-task packageDistribution(type: Zip) {
-    dependsOn 'build'
-    boolean includeArchiveDirectory = true
-    archiveFileName = "${project.name}-${project.version}-release.zip"
-    destinationDirectory = file("${buildDir}/release")
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    if (includeArchiveDirectory) {
-        String catalog = project.name
-        into("${catalog}") {
-            from("${buildDir}/libs") {
-                include "*.jar"
-            }
-        }
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
-        into("${catalog}/lib") {
-            from configurations.compileClasspath
-        }
+        implementation 'org.springframework.boot:spring-boot-autoconfigure-processor'
 
-        into("${catalog}/config") {
-            from("${buildDir}/resources/main") {
-                include '**/**.*'
-            }
-        }
-        into("${catalog}/bin") {
-            from("scripts")
-        }
-    } else {
-        from("${buildDir}/libs") {
-            include "*.jar"
-        }
+        implementation 'org.springframework.boot:spring-boot-autoconfigure'
 
-        into('lib') {
-            from configurations.compileClasspath
-        }
-
-        into('config') {
-            from("${buildDir}/resources/main") {
-                include '**/**.*'
-            }
-        }
-        into('bin') {
-            from("scripts")
-        }
     }
 
 
 }
-
-//packageDistribution.mustRunAfter jar
