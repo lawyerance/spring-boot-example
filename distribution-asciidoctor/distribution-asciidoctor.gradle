@@ -1,15 +1,15 @@
 plugins {
     id 'java'
 }
+
 apply plugin: 'org.asciidoctor.convert'
 apply plugin: 'io.github.swagger2markup'
 
 group 'pers.lyks.spring.boot'
 version '1.0.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-
-
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
     swaggerOutputDir = file("build/swagger")
@@ -25,12 +25,16 @@ repositories {
 }
 
 dependencies {
+    implementation libraries.swagger2
 
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    implementation libraries.snakeyaml
 
     asciidoctor "org.springframework.restdocs:spring-restdocs-asciidoctor:$springRestdocsVersion"
 
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
 }
 
 
@@ -41,6 +45,7 @@ test {
 
 convertSwagger2markup {
     dependsOn test
+
     swaggerInput "${swaggerOutputDir}/swagger.json"
     outputDir asciiDocOutputDir
     config = ['swagger2markup.markupLanguage': 'ASCIIDOC',
@@ -53,6 +58,7 @@ asciidoctorj {
 
 asciidoctor {
     dependsOn convertSwagger2markup
+    sourceDir(file("${projectDir}/docs/asciidoc/"))
     sources {
         include 'index.adoc'
     }
@@ -85,14 +91,11 @@ jar {
 
 bootJar {
     archiveFileName = project.name + ".jar"
-    classifier = 'boot'
+    archiveClassifier = 'boot'
     excludes = ["*.jar"]
     includes = ["**/*.class", "MANIFEST.MF"]
 
     from("${asciidoctor.outputDir}/html5") {
-        into 'META-INF/resources/docs'
-    }
-    from("${asciidoctor.outputDir}/pdf") {
         into 'META-INF/resources/docs'
     }
 
@@ -103,6 +106,7 @@ bootJar {
 }
 
 task packageDistribution(type: Zip) {
+
     dependsOn 'build'
     boolean includeArchiveDirectory = true
     archiveFileName = "${project.name}-${project.version}-release.zip"
@@ -125,6 +129,9 @@ task packageDistribution(type: Zip) {
                 include '**/**.*'
             }
         }
+        into("${catalog}/config/META-INF/resources/docs") {
+            from("${asciidoctor.outputDir}/html5")
+        }
         into("${catalog}/bin") {
             from("scripts")
         }
@@ -146,6 +153,5 @@ task packageDistribution(type: Zip) {
             from("scripts")
         }
     }
-
 
 }

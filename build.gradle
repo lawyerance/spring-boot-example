@@ -33,9 +33,11 @@ idea {
 
 
 subprojects {
+    apply plugin: 'java'
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
-    apply plugin: 'java'
+
+    apply from: rootProject.file("gradle/dependency.gradle")
 
     repositories {
         mavenLocal()
@@ -53,7 +55,7 @@ subprojects {
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+//        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
         implementation 'org.springframework.boot:spring-boot-autoconfigure-processor'
 
@@ -61,5 +63,8 @@ subprojects {
 
     }
 
+    clean {
+        delete "${buildDir}"
+    }
 
 }

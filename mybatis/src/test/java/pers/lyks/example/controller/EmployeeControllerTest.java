@@ -1,24 +1,15 @@
 package pers.lyks.example.controller;
 
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.JUnitRestDocumentation;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 import pers.lyks.example.BaseRestTest;
-import pers.lyks.spring.example.model.EmployeeModel;
-import pers.lyks.spring.example.service.EmployeeService;
+import pers.lyks.example.model.EmployeeModel;
+import pers.lyks.example.service.EmployeeService;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author lawyerance
  * @version 1.0 2019-09-18
  */
-public class EmployeeControllerTest  extends BaseRestTest {
+public class EmployeeControllerTest extends BaseRestTest {
 
     @MockBean
     private EmployeeService employeeService;

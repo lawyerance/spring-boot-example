@@ -19,7 +19,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
  * @author lawyerance
  * @version 1.0 2019-09-19
  */
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public abstract class BaseRestTest {

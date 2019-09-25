@@ -1,8 +1,8 @@
 package pers.lyks.example;
 
-import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * Spring-boot web application main method.
@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0 2018-08-03
  */
 @SpringBootApplication(exclude = {
+        DataSourceAutoConfiguration.class
 })
 public class ServletApplication {
     public static void main(String[] args) {

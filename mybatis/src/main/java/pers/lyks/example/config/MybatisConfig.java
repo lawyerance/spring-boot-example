@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {"pers.lyks.spring.**.mapper"})
+@MapperScan(basePackages = {"pers.lyks.**.mapper"})
 public class MybatisConfig implements TransactionManagementConfigurer {
 
     @javax.annotation.Resource
@@ -47,11 +47,11 @@ public class MybatisConfig implements TransactionManagementConfigurer {
 
         try {
             // 配置类型别名
-            bean.setTypeAliasesPackage("pers.lyks.spring.*.model");
+            bean.setTypeAliasesPackage("pers.lyks.*.model");
 
             // 配置mapper的扫描，找到所有的mapper.xml映射文件
             Resource[] resources = new PathMatchingResourcePatternResolver()
-                    .getResources("classpath*:pers/lyks/spring/**/mapper/**Mapper.xml");
+                    .getResources("classpath*:pers/lyks/**/mapper/**Mapper.xml");
             bean.setMapperLocations(resources);
             return bean.getObject();
         } catch (Exception e) {

@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+group 'pers.lyks.spring.boot'
+version '1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven { url 'http://repo.spring.io/plugins-release/' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation libraries.snakeyaml
+
+}

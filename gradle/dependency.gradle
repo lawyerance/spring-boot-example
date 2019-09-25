@@ -1,0 +1,20 @@
+ext.libraries = [
+        swagger2     : [
+                dependencies.create("io.springfox:springfox-swagger-ui:$swaggerVersion") {
+                    force = true
+                },
+                dependencies.create("io.springfox:springfox-swagger2:$swaggerVersion") {
+                    force = true
+                }
+        ],
+        snakeyaml    : [
+                dependencies.create("org.yaml:snakeyaml:$snakeyamlVersion") {
+                    force = true
+                }
+        ],
+        mybatisSpring: [
+                dependencies.create("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringVersion") {
+                    force = true
+                }
+        ]
+]
