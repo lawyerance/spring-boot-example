@@ -1,6 +1,8 @@
-include 'mybatis'
+include 'spring-boot-mybatis'
 include 'checkstyle'
-include 'distribution-asciidoctor'
+include 'asciidoctor'
+include 'asciidoctor:spring-boot-restdoc'
+include 'asciidoctor:spring-boot-swagger'
 
 rootProject.name = 'spring-boot-example'
 rootProject.children.each { project ->
