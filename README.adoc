@@ -1,8 +1,32 @@
 = Spring Boot 学习例子
+:toc: left
+:toc-title: 目录
 
 == 项目结构
 
-== 整合WEB框架中常用功能
+[source,,]
+----
+checkstyle
+
+asciidoctor
+
+mybatis
+----
+
+== 项目说明
+
+=== checkstyle
+
+=== asciidoctor
+
+swagger
+
+[source,bash]
+----
+     ./gradlew clean asciidoctor:spring-boot-swagger:distribution -PincludeArchive=true
+----
+
+=== mybatis
 
 1.数据库连接池Druid和Mybatis
 
@@ -11,4 +35,5 @@
 3.多语言支持
 
 4.统一restful消息返回处理，并且添加消息返回多语言
+
 

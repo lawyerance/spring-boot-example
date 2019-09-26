@@ -146,53 +146,37 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
     }
 
     task distribution(type: Zip) {
-
-        dependsOn 'build'
-        boolean includeArchiveDirectory = true
+        boolean includeArchiveDirectory = (project.hasProperty('includeArchive') ? Boolean.valueOf(project.findProperty('includeArchive').toString()) : false)
         archiveFileName = "${project.name}-${project.version}-release.zip"
         destinationDirectory = file("${buildDir}/release")
-
+        println("The distribution package whether contains archive name with value: ${includeArchiveDirectory}")
         if (includeArchiveDirectory) {
-            String catalog = project.name
-            into("${catalog}") {
-                from("${buildDir}/libs") {
-                    include "*.jar"
-                }
-            }
-
-            into("${catalog}/lib") {
-                from configurations.compileClasspath
-            }
-
-            into("${catalog}/config") {
-                from("${buildDir}/resources/main") {
-                    include '**/**.*'
-                }
-            }
-            into("${catalog}/config/META-INF/resources/docs") {
-                from("${asciidoctor.outputDir}/html5")
-            }
-            into("${catalog}/bin") {
-                from("scripts")
+            into("${project.name}") {
+                from("${buildDir}/libs")
             }
         } else {
-            from("${buildDir}/libs") {
-                include "*.jar"
-            }
+            from("${buildDir}/libs")
+        }
+    }
 
-            into('lib') {
-                from configurations.compileClasspath
-            }
 
-            into('config') {
-                from("${buildDir}/resources/main") {
-                    include '**/**.*'
-                }
-            }
-            into('bin') {
-                from("scripts")
+    task copyRelease(type: Copy) {
+        destinationDir = file("${buildDir}/libs")
+
+        into('lib') {
+            from configurations.compileClasspath
+        }
+
+        into('config') {
+            from("${buildDir}/resources/main") {
+                include '**/**.*'
             }
         }
 
+        into('bin') {
+            from("scripts")
+        }
     }
+
+    distribution.dependsOn build, copyRelease
 }

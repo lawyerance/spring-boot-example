@@ -16,5 +16,6 @@ ext.libraries = [
                 dependencies.create("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringVersion") {
                     force = true
                 }
-        ]
+        ],
+
 ]
