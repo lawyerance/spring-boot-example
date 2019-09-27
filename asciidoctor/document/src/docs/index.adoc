@@ -1,0 +1,16 @@
+= Document Example
+
+== table
+
+[options="header"]
+|===
+|字段 |类型 |说明
+|code|int|状态码
+|data|Object|数据体
+| {nbsp}{nbsp}  pageNo
+|int|页码
+
+|pageSize
+|int
+|每页记录数
+|===

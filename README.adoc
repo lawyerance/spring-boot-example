@@ -23,7 +23,7 @@ swagger
 
 [source,bash]
 ----
-     ./gradlew clean asciidoctor:spring-boot-swagger:distribution -PincludeArchive=true
+./gradlew clean asciidoctor:spring-boot-swagger:distribution -PincludeArchive=true
 ----
 
 === mybatis
@@ -35,5 +35,4 @@ swagger
 3.多语言支持
 
 4.统一restful消息返回处理，并且添加消息返回多语言
-
 

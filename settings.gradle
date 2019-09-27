@@ -3,6 +3,7 @@ include 'checkstyle'
 include 'asciidoctor'
 include 'asciidoctor:spring-boot-restdoc'
 include 'asciidoctor:spring-boot-swagger'
+include 'asciidoctor:document'
 
 rootProject.name = 'spring-boot-example'
 rootProject.children.each { project ->

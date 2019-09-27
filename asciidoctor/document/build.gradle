@@ -1,0 +1,68 @@
+//buildscript {
+//    ext {
+//        asciidoctor3XVersion = "3.0.0-alpha.3"
+//    }
+//
+//    repositories {
+//        mavenLocal()
+//        maven { url "https://plugins.gradle.org/m2/" }
+//        jcenter()
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath "org.asciidoctor:asciidoctor-gradle-jvm:$asciidoctor3XVersion"
+//    }
+//}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+    id 'java'
+}
+
+
+group "$group"
+version "$version"
+
+apply plugin: "org.asciidoctor.jvm.convert"
+
+
+compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+
+asciidoctor {
+    println("$projectDir")
+    baseDir(file("${projectDir}/src/docs/"))
+    sourceDir(file("${projectDir}/src/docs/"))
+    sources {
+        include 'index.adoc'
+    }
+    asciidoctorj {
+        version = '2.1.0'
+
+    }
+    attributes = [
+            doctype    : 'book',
+            toc        : 'left',
+            toclevels  : '3',
+            numbered   : '',
+            sectlinks  : '',
+            sectanchors: '',
+            hardbreaks : ''
+    ]
+}
+

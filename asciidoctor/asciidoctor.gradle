@@ -3,8 +3,10 @@ buildscript {
     ext {
         asciidoctorVersion = "1.5.9.2"
     }
+
     repositories {
         mavenLocal()
+        maven { url "https://plugins.gradle.org/m2/" }
         jcenter()
         mavenCentral()
     }
@@ -17,6 +19,9 @@ buildscript {
         classpath "io.github.swagger2markup:swagger2markup-import-files-ext:1.3.1"
         classpath "com.bluepapa32:gradle-watch-plugin:0.1.5"
         classpath "org.kordamp.gradle:livereload-gradle-plugin:0.2.1"
+
+        classpath "org.asciidoctor:asciidoctor-gradle-jvm:3.0.0-alpha.3"
+
     }
 }
 
@@ -24,16 +29,8 @@ subprojects {
     group "$group"
     version "$version"
 
-
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-
-    ext {
-        swaggerOutputDir = file("build/swagger")
-        asciiDocOutputDir = file("build/asciidoc/generated")
-        snippetsOutputDir = file("build/asciidoc/snippets")
-    }
-
 
     repositories {
         mavenLocal()
@@ -43,15 +40,21 @@ subprojects {
 
     dependencies {
         implementation libraries.swagger2
-
         implementation libraries.snakeyaml
+    }
 
-        testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    if (project.name.startsWith('spring-boot')) {
+        apply plugin: "org.springframework.boot"
+        apply plugin: "io.spring.dependency-management"
+
+        dependencies {
+            testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+        }
     }
 }
 
 configure(subprojects.findAll { it.name.endsWith('swagger') }) {
-    println('current project ----> ' + project.name)
+    println("current project ${project.name} on path: ${projectDir}")
 
     apply plugin: 'org.asciidoctor.convert'
     apply plugin: 'io.github.swagger2markup'
@@ -117,7 +120,7 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
 
     jar {
 
-        archiveBaseName = "spring-example"
+        archiveBaseName.set("spring-example")
         dependsOn asciidoctor
 
         from("${asciidoctor.outputDir}/html5") {
@@ -131,13 +134,9 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
 
     bootJar {
         archiveFileName = project.name + ".jar"
-        archiveClassifier = 'boot'
+        archiveClassifier.set('boot')
         excludes = ["*.jar"]
         includes = ["**/*.class", "MANIFEST.MF"]
-
-        from("${asciidoctor.outputDir}/html5") {
-            into 'META-INF/resources/docs'
-        }
 
         manifest {
             attributes "Manifest-Version": 1.0,
@@ -171,10 +170,15 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
             from("${buildDir}/resources/main") {
                 include '**/**.*'
             }
+
         }
 
         into('bin') {
             from("scripts")
+        }
+
+        into("config/META-INF/resources/docs") {
+            from("${asciidoctor.outputDir}/html5")
         }
     }
 
