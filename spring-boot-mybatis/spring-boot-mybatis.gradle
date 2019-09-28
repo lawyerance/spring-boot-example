@@ -13,16 +13,13 @@ repositories {
 }
 
 dependencies {
-
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+    implementation libraries.mysql
 
     implementation libraries.swagger2
 
     implementation libraries.mybatisSpring
 
-    compileOnly(group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3') {
-        exclude(group: 'org.slf4j', module: 'slf4j-api')
-    }
+    implementation libraries.logback
 
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation libraries.springRestdocs
 }

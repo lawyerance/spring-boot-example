@@ -2,6 +2,8 @@ package pers.lyks.example.controller;
 
 import io.swagger.annotations.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +47,8 @@ public class EmployeeController {
     }
 
     @ApiModel(value = "pagination object", description = "pagination")
-    @Data
+    @Getter
+    @Setter
     public static class Page {
         @ApiParam(value = "page index", defaultValue = "1", example = "1")
         @ApiModelProperty(value = "page index", example = "1")
@@ -56,7 +59,8 @@ public class EmployeeController {
     }
 
     @ApiModel(value = "page index", description = "the index of search data page")
-    @Data
+    @Getter
+    @Setter
     public static class Input {
         @ApiParam(value = "search key", required = true, example = "key")
         private String key;
@@ -66,7 +70,8 @@ public class EmployeeController {
     }
 
     @ApiModel(value = "common response object", description = "common response object contain any data")
-    @Data
+    @Getter
+    @Setter
     public static class Output<T> {
         @ApiParam(value = "return response code", required = true, example = "200")
         private int code;
@@ -76,7 +81,8 @@ public class EmployeeController {
     }
 
     @ApiModel(value = "page data object with data", description = "page data with collection data")
-    @Data
+    @Getter
+    @Setter
     public static class PageData<T> extends Page {
         @ApiModelProperty(value = "page collection data", required = true, example = "[]")
         private List<T> list;

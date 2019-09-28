@@ -41,6 +41,7 @@ subprojects {
     dependencies {
         implementation libraries.swagger2
         implementation libraries.snakeyaml
+
     }
 
     if (project.name.startsWith('spring-boot')) {
@@ -48,7 +49,7 @@ subprojects {
         apply plugin: "io.spring.dependency-management"
 
         dependencies {
-            testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+            testImplementation libraries.springRestdocs
         }
     }
 
@@ -98,9 +99,9 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
 
     dependencies {
 
-        asciidoctor "org.springframework.restdocs:spring-restdocs-asciidoctor:$springRestdocsVersion"
+        asciidoctor libraries.springRestdocs
 
-        asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+        asciidoctor libraries.asciidoctorjPdf
 
     }
 

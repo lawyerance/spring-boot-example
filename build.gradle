@@ -46,19 +46,13 @@ subprojects { Project project ->
 
         dependencies {
 
-            implementation 'org.springframework.boot:spring-boot-starter-web'
+            implementation libraries.springBootWeb
 
-            testImplementation 'org.springframework.boot:spring-boot-starter-test'
+            testImplementation libraries.springBootTest
 
-//        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+            compileOnly libraries.lombok
 
-            implementation 'org.springframework.boot:spring-boot-autoconfigure-processor'
-
-            implementation 'org.springframework.boot:spring-boot-autoconfigure'
-
-            compileOnly 'org.projectlombok:lombok'
-
-            annotationProcessor 'org.projectlombok:lombok'
+            annotationProcessor libraries.lombok
         }
     }
 

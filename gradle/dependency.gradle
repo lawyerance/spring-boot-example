@@ -1,5 +1,5 @@
 ext.libraries = [
-        swagger2     : [
+        swagger2       : [
                 dependencies.create("io.springfox:springfox-swagger-ui:$swaggerVersion") {
                     force = true
                 },
@@ -7,15 +7,69 @@ ext.libraries = [
                     force = true
                 }
         ],
-        snakeyaml    : [
+        snakeyaml      : [
                 dependencies.create("org.yaml:snakeyaml:$snakeyamlVersion") {
                     force = true
                 }
         ],
-        mybatisSpring: [
+        mybatisSpring  : [
                 dependencies.create("org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisSpringVersion") {
+                    force = true
+                    exclude(group: 'org.springframework.boot')
+                },
+                dependencies.create("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion") {
                     force = true
                 }
         ],
+        lombok         : [
+                dependencies.create("org.projectlombok:lombok:$lombokVersion") {
+                    force = true
+                }
+        ],
+        springBootWeb  : [
+                dependencies.create("org.springframework.boot:spring-boot-starter-web:$springBootVersion") {
+                    force = true
+                    exclude(group: 'org.springframework.boot', module: 'spring-boot-starter')
+                },
 
+                dependencies.create("org.springframework.boot:spring-boot-starter:$springBootVersion") {
+                    force = true
+                },
+
+                dependencies.create("org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion") {
+                    force = true
+                },
+
+                dependencies.create("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion") {
+                    force = true
+                },
+        ],
+
+        springBootTest : [
+                dependencies.create("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
+                    force = true
+                }
+        ],
+        springRestdocs : [
+                dependencies.create("org.springframework.restdocs:spring-restdocs-mockmvc:$springRestdocsVersion") {
+                    force = true
+                }
+        ],
+        mysql          : [
+                dependencies.create("mysql:mysql-connector-java:$mysqlVersion") {
+                    force = true
+                }
+        ],
+        logback        : [
+                dependencies.create("ch.qos.logback:logback-classic:$logbackVersion") {
+                    force = true
+
+                    exclude(group: 'org.slf4j', module: 'slf4j-api')
+                }
+        ],
+        asciidoctorjPdf: [
+                dependencies.create("org.asciidoctor:asciidoctorj-pdf:$asciidoctorjPdfVersion") {
+                    force = true
+                }
+        ]
 ]
