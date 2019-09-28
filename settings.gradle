@@ -9,4 +9,3 @@ rootProject.name = 'spring-boot-example'
 rootProject.children.each { project ->
     project.buildFileName = "${project.name}.gradle"
 }
-

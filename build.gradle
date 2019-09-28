@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "pers.lysk.build.distribution" apply false
+}
+
 apply plugin: 'idea'
 
 group "$group"

@@ -1,0 +1,25 @@
+plugins {
+    id("java-gradle-plugin")
+}
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation("me.champeau.gradle:japicmp-gradle-plugin:0.2.8")
+    implementation("com.google.guava:guava:18.0")
+}
+
+tasks {
+    gradlePlugin {
+        plugins {
+            distributionPlugin {
+                id = "pers.lysk.build.distribution"
+                implementationClass = "pers.lyks.plugin.DistributionPackagePlugin"
+            }
+        }
+    }
+}
