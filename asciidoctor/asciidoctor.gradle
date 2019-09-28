@@ -51,6 +51,30 @@ subprojects {
             testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
         }
     }
+
+    if (project.name.equalsIgnoreCase('spring-boot-restdoc')) {
+        apply plugin: 'org.asciidoctor.convert'
+
+        asciidoctor {
+            dependsOn(test)
+            sourceDir(file("${projectDir}/docs/asciidoc/"))
+            sources {
+                include '*.adoc'
+            }
+            backends = ['html5', 'pdf']
+            attributes = [
+                    doctype    : 'book',
+                    toc        : 'left',
+                    toclevels  : '3',
+                    numbered   : '',
+                    sectlinks  : '',
+                    sectanchors: '',
+                    hardbreaks : '',
+                    generated  : file("${buildDir}/generated-snippets")
+            ]
+        }
+
+    }
 }
 
 configure(subprojects.findAll { it.name.endsWith('swagger') }) {
@@ -60,9 +84,9 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
     apply plugin: 'io.github.swagger2markup'
 
     ext {
-        swaggerOutputDir = file("build/swagger")
-        asciiDocOutputDir = file("build/asciidoc/generated")
-        snippetsOutputDir = file("build/asciidoc/snippets")
+        swaggerOutputDir = file("${buildDir}/swagger")
+        asciiDocOutputDir = file("${buildDir}/asciidoc/generated")
+        snippetsOutputDir = file("${buildDir}/asciidoc/snippets")
     }
 
 
@@ -118,19 +142,6 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
         ]
     }
 
-    jar {
-
-        archiveBaseName.set("spring-example")
-        dependsOn asciidoctor
-
-        from("${asciidoctor.outputDir}/html5") {
-            into 'META-INF/resources/docs'
-        }
-        from("${asciidoctor.outputDir}/pdf") {
-            into 'META-INF/resources/docs'
-        }
-
-    }
 
     bootJar {
         archiveFileName = project.name + ".jar"
@@ -182,5 +193,5 @@ configure(subprojects.findAll { it.name.endsWith('swagger') }) {
         }
     }
 
-    distribution.dependsOn build, copyRelease
+    distribution.dependsOn asciidoctor, build, copyRelease
 }

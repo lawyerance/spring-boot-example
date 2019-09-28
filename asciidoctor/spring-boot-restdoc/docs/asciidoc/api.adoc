@@ -1,0 +1,17 @@
+= Spring REST Docs Api Document
+
+This is an example output for a service running at http://localhost:8080:
+
+== Hello
+
+.curl
+include::{snippets}/hello/curl-request.adoc[]
+
+.request
+include::{snippets}/hello/http-request.adoc[]
+
+.path
+include::{snippets}/hello/path-parameters.adoc[]
+
+.response
+include::{snippets}/hello/http-response.adoc[]
