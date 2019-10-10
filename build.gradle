@@ -41,7 +41,7 @@ allprojects {
 
 }
 
-subprojects { Project project ->
+subprojects { project ->
     apply plugin: 'java'
 
     if (project.name.startsWith('spring-boot')) {

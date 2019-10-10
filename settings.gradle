@@ -7,5 +7,7 @@ include 'asciidoctor:document'
 
 rootProject.name = 'spring-boot-example'
 rootProject.children.each { project ->
-    project.buildFileName = "${project.name}.gradle"
+    if ("buildSrc" != project.name) {
+        project.buildFileName = "${project.name}.gradle"
+    }
 }
