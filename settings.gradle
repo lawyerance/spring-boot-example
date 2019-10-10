@@ -1,13 +1,16 @@
 include 'spring-boot-mybatis'
 include 'checkstyle'
 include 'asciidoctor'
-include 'asciidoctor:spring-boot-restdoc'
+include 'asciidoctor:spring-boot-restdocs'
 include 'asciidoctor:spring-boot-swagger'
 include 'asciidoctor:document'
 
+include 'buildSrc'
+
 rootProject.name = 'spring-boot-example'
-rootProject.children.each { project ->
-    if ("buildSrc" != project.name) {
-        project.buildFileName = "${project.name}.gradle"
-    }
+
+rootProject.children.findAll { "buildSrc" != it.name }.each { project ->
+    project.buildFileName = "${project.name}.gradle"
 }
+
+rootProject.children.find { it.name == "buildSrc" }.name = "build-src"

@@ -9,8 +9,11 @@
 checkstyle
 
 asciidoctor
+    document
+    spring-boot-restdoc
+    spring-boot-swagger
 
-mybatis
+spring-boot-mybatis
 ----
 
 == 项目说明
@@ -19,20 +22,24 @@ mybatis
 
 === asciidoctor
 
-swagger
+==== document
+
+==== spring-boot-restdocs
+
+==== spring-boot-swagger
 
 [source,bash]
 ----
 ./gradlew clean asciidoctor:spring-boot-swagger:distribution -PincludeArchive=true
 ----
 
-=== mybatis
+=== spring-boot-mybatis
 
-1.数据库连接池Druid和Mybatis
+1. 数据库连接池Druid和Mybatis
 
-2.使用swagger-ui作为Restful接口文档
+2. 使用swagger-ui作为Restful接口文档
 
-3.多语言支持
+3. 多语言支持
 
-4.统一restful消息返回处理，并且添加消息返回多语言
+4. 统一restful消息返回处理，并且添加消息返回多语言
 
