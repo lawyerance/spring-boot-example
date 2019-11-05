@@ -1,23 +1,9 @@
-//buildscript {
-//    ext {
-//        asciidoctor3XVersion = "3.0.0-alpha.3"
-//    }
-//
-//    repositories {
-//        mavenLocal()
-//        maven { url "https://plugins.gradle.org/m2/" }
-//        jcenter()
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath "org.asciidoctor:asciidoctor-gradle-jvm:$asciidoctor3XVersion"
-//    }
-//}
-
-
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.41'
     id 'java'
+
+    id "org.asciidoctor.jvm.pdf" version "3.0.0-alpha.3"
+
 }
 
 
@@ -46,7 +32,6 @@ dependencies {
 
 
 asciidoctor {
-    println("$projectDir")
     baseDir(file("${projectDir}/src/docs/"))
     sourceDir(file("${projectDir}/src/docs/"))
     sources {
@@ -66,4 +51,33 @@ asciidoctor {
             hardbreaks : ''
     ]
 }
+
+
+pdfThemes {
+    local 'default', {
+        styleDir = file('src/docs/data/themes')
+        styleName = 'default'
+    }
+
+}
+
+asciidoctorPdf {
+    sourceDir = 'src/docs'
+
+    sources {
+        include '*.adoc'
+    }
+
+    asciidoctorj {
+        version '2.1.0'
+
+        getModules().getPdf().setVersion('1.5.0-beta.7')
+
+
+    }
+
+    theme = 'default'
+    fontsDir = file('src/docs/data/fonts')
+}
+
 

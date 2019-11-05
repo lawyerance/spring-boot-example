@@ -1,16 +1,63 @@
-= Document Example
+= 接口文档（测试）
 
-== table
+== 基础信息查询
+
+=== 员工详细信息
+
+==== 接口描述
+
+ 根据员工编号查询详细信息
+
+==== 接口地址
+
+ /employees/{id}
+
+==== 请求方式
+
+ HTTP GET
+
+==== 请求参数
+
+[options="header"]
+|===
+|字段 |类型 |必填|说明
+|id|long|true|员工ID
+|===
+
+==== 返回参数
 
 [options="header"]
 |===
 |字段 |类型 |说明
 |code|int|状态码
+|message|String|状态信息
 |data|Object|数据体
-| {nbsp}{nbsp}  pageNo
-|int|页码
-
-|pageSize
-|int
-|每页记录数
+|&nbsp; &nbsp;id
+|int|员工ID
+|&emsp;name
+|String
+|员工姓名
 |===
+
+==== 请求示例
+
+- curl
+
+[source,shell script]
+----
+curl http:127.0.0.1/web/employees/1
+----
+
+- Response Body
+
+[source,json]
+----
+{
+    "code": 200,
+    "message": "OK",
+    "data": {
+        "id": 1,
+        "name": "张三"
+    }
+}
+----

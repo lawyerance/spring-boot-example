@@ -1,0 +1,22 @@
+extends: default
+font:
+  catalog:
+    Noto Serif:
+      normal: KaiGenGothicCN-Regular.ttf
+      bold: KaiGenGothicCN-Bold.ttf
+      italic: KaiGenGothicCN-Regular-Italic.ttf
+      bold_italic: KaiGenGothicCN-Bold-Italic.ttf
+    M+ 1mn:
+      normal: RobotoMono-Regular.ttf
+      bold: RobotoMono-Bold.ttf
+      italic: RobotoMono-Italic.ttf
+      bold_italic: RobotoMono-BoldItalic.ttf
+    # M+ 1p supports Latin, Latin-1 Supplement, Latin Extended, Greek, Cyrillic, Vietnamese, Japanese & an assortment of symbols
+    # It also provides arrows for ->, <-, => and <= replacements in case these glyphs are missing from font
+    M+ 1p Fallback:
+      normal: RobotoMono-Regular.ttf
+      bold: RobotoMono-Bold.ttf
+      italic: RobotoMono-Italic.ttf
+      bold_italic: RobotoMono-BoldItalic.ttf
+  fallbacks:
+  - M+ 1p Fallback
