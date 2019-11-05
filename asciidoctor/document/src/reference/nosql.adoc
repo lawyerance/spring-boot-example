@@ -1,0 +1,212 @@
+= NoSQL
+
+
+== Redis
+
+=== Redis 是什么，都有哪些使用场景
+
+Redis 本质上是一个 Key-Value 类型的内存数据库，很像
+memcached，整个数据库统统加载在内存当中进行操作，定期通过异步操作把数据库数据
+flush 到硬盘上进行保存。因为是纯内存操作，Redis
+的性能非常出色，每秒可以处理超过 10 万次读写操作，是已知性能最快的
+Key-Value DB。 Redis 的出色之处不仅仅是性能，Redis
+最大的魅力是支持保存多种数据结构，此外单个 value 的最大限制是 1GB，不像
+memcached 只能保存 1MB 的数据，因此 Redis
+可以用来实现很多有用的功能，比方说用他的 List 来做 FIFO
+双向链表，实现一个轻量级的高性 能消息队列服务，用他的 Set 可以做高性能的
+tag 系统等等。另外 Redis 也可以对存入的 Key-Value 设置 expire
+时间，因此也可以被当作一 个功能加强版的 memcached 来用。 Redis
+的主要缺点是数据库容量受到物理内存的限制，不能用作海量数据的高性能读写，因此
+Redis 适合的场景主要局限在较小数据量的高性能操作和运算上。
+
+ Redis 有哪些功能
+
+[arabic]
+. 会话缓存（Session Cache）
++
+最常用的一种使用 Redis 的情景是会话缓存（session cache）。用 Redis
+缓存会话比其他存储（如 Memcached）的优势在于：Redis
+提供持久化。当维护一个不是严格要求一致性的缓存时，如果用户的购物车信息全部丢失，大部分人都会不高兴的，现在，他们还会这样吗
+幸运的是，随着 Redis 这些年的改进，很容易找到怎么恰当的使用 Redis
+来缓存会话的文档。甚至广为人知的商业平台 Magento 也提供 Redis 的插件。
+. 全页缓存（FPC）
++
+除基本的会话 token 之外，Redis 还提供很简便的 FPC
+平台。回到一致性问题，即使重启了 Redis
+实例，因为有磁盘的持久化，用户也不会看到页面加载速度的下降，这是一个极大改进，类似
+PHP 本地 FPC。 再次以 Magento 为例，Magento 提供一个插件来使用 Redis
+作为全页缓存后端。 此外，对 WordPress 的用户来说，Pantheon
+有一个非常好的插件
+wp-redis，这个插件能帮助你以最快速度加载你曾浏览过的页面。
+. 队列
++
+Reids 在内存存储引擎领域的一大优点是提供 list 和 set 操作，这使得 Redis
+能作为一个很好的消息队列平台来使用。Redis
+作为队列使用的操作，就类似于本地程序语言（如 Python）对 list 的 push/pop
+操作。 如果你快速的在 Google 中搜索``Redis
+queues''，你马上就能找到大量的开源项目，这些项目的目的就是利用 Redis
+创建非常好的后端工具，以满足各种队列需求。例如，Celery
+有一个后台就是使用 Redis 作为 broker，你可以从这里去查看。
+. 排行榜/计数器
++
+Redis
+在内存中对数字进行递增或递减的操作实现的非常好。集合（Set）和有序集合（Sorted
+Set）也使得我们在执行这些操作的时候变的非常简单，Redis
+只是正好提供了这两种数据结构。所以，我们要从排序集合中获取到排名最靠前的
+10 个用户–我们称之为``user_scores''，我们只需要像下面一样执行即可：
+当然，这是假定你是根据你用户的分数做递增的排序。如果你想返回用户及用户的分数，你需要这样执行：
+ZRANGE user_scores 0 10 WITHSCORES Agora Games 就是一个很好的例子，用
+Ruby 实现的，它的排行榜就是使用 Redis 来存储数据的，你可以在这里看到。
+. 发布/订阅
++
+最后（但肯定不是最不重要的）是 Redis
+的发布/订阅功能。发布/订阅的使用场景确实非常多。我已看见人们在社交网络连接中使用，还可作为基于发布/订阅的脚本触发器，甚至用
+Redis 的发布/订阅功能来建立聊天系统！（不，这是真的，你可以去核实）。
+
+=== Redis 和 MemeCache 有什么区别
+
+[arabic]
+. 数据类型 Redis 支持的数据类型要丰富得多,Redis 不仅仅支持简单的 k/v
+类型的数据，同时还提供 String，List,Set,Hash,Sorted
+Set,pub/sub,Transactions 数据结构的存储。其中 Set 是 HashMap
+实现的，value 永远为 null 而已 memcache
+支持简单数据类型，需要客户端自己处理复杂对象
+. 持久性 redis
+支持数据落地持久化存储,可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用；
+memcache 不支持数据持久存储
+. 分布式存储 redis 支持 master-slave 复制模式；memcache 可以使用一致性
+hash 做分布式
+. value 大小不同 memcache 是一个内存缓存，key 的长度小于 250 字符，单个
+item 存储要小于 1M，不适合虚拟机使用
+. 数据一致性不同 Redis 只使用单核，而 Memcached
+可以使用多核，所以平均每一个核上 Redis 在存储小数据时比 Memcached
+性能更高。而在 100k 以上的数据中，Memcached 性能要高于 Redis，虽然 Redis
+最近也在存储大数据的性能上进行优化，但是比起 Memcached，还是稍有逊色。
+redis 使用的是单线程模型，保证了数据按顺序提交。 memcache 需要使用 cas
+保证数据一致性。CAS（Check and
+Set）是一个确保并发一致性的机制，属于``乐观锁''范畴；原理很简单：拿版本号，操作，对比版本号，如果一致就操作，不一致就放弃任何操作
+. cpu 利用 redis 单线程模型只能使用一个 cpu，可以开启多个 redis 进程
+
+=== Redis 为什么是单线程的
+
+因为 CPU 不是 Redis 的瓶颈。Redis
+的瓶颈最有可能是机器内存或者网络带宽，既然单线程容易实现，而且 CPU
+不会成为瓶颈，那就顺理成章地采用单线程的方案了
+
+=== 什么是缓存穿透怎么解决
+
+缓存穿透是指查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到存储层去查询，失去了缓存的意义。在流量大时，可能
+DB 就挂掉了，要是有人利用不存在的 key 频繁攻击我们的应用，这就是漏洞。
+key 不存在时，大量的数据进来查询 DB
+
+解决方案：有很多种方法可以有效地解决缓存穿透问题，最常见的则是采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的
+bitmap 中，一个一定不存在的数据会被 这个 bitmap
+拦截掉，从而避免了对底层存储系统的查询压力。另外也有一个更为简单粗暴的方法（我们采用的就是这种），如果一个查询返回的数据为空（不管是数
+据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。缓存穿透是指查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到存储层去查询，失去了缓存的意义。在流量大时，可能
+DB 就挂掉了，要是有人利用不存在的 key 频繁攻击我们的应用，这就是漏洞。
+key 不存在时，大量的数据进来查询 DB
+
+=== Redis 支持的数据类型有哪些
+
+String、List、Set、Sorted Set、hashes
+
+=== Redis 支持的 Java 客户端都有哪些
+
+Redisson、Jedis、lettuce 等等，官方推荐使用 Redisson。
+
+=== Jedis 和 Redisson 有哪些区别
+
+==== 1. 概况对比
+
+Jedis 是 Redis 的 Java 实现的客户端，其 API 提供了比较全面的 Redis
+命令的支持；Redisson 实现了分布式和可扩展的 Java 数据结构，和 Jedis
+相比，功能较为简单，不支持字符串操作，不支持排序、事务、管道、分区等
+Redis 特性。Redisson 的宗旨是促进使用者对 Redis
+的关注分离，从而让使用者能够将精力更集中地放在处理业务逻辑上。
+
+==== 2. 编程模型
+
+Jedis 中的方法调用是比较底层的暴露的 Redis 的 API，也即 Jedis 中的 Java
+方法基本和 Redis 的 API 保持着一致，了解 Redis 的 API，也就能熟练的使用
+Jedis。而 Redisson
+中的方法则是进行比较高的抽象，每个方法调用可能进行了一个或多个 Redis
+方法调用。
+
+如下分别为 Jedis 和 Redisson 操作的简单示例：
+
+____
+Jedis 设置 key-value 与 set 操作：
+____
+
+[source,java]
+----
+Jedis jedis = …;
+jedis.set("key", "value");
+List<String> values = jedis.mget("key", "key2", "key3");
+----
+
+____
+Redisson 操作 map：
+____
+
+[source,java]
+----
+Redisson redisson = …
+RMap map = redisson.getMap("my-map"); // implement java.util.Map
+map.put("key", "value");
+map.containsKey("key");
+map.get("key");
+----
+
+==== 3. 可伸缩性
+
+Jedis 使用阻塞的 I/O，且其方法调用都是同步的，程序流需要等到 sockets
+处理完 I/O 才能执行，不支持异步。Jedis
+客户端实例不是线程安全的，所以需要通过连接池来使用 Jedis。
+
+Redisson 使用非阻塞的 I/O 和基于 Netty
+框架的事件驱动的通信层，其方法调用是异步的。Redisson 的 API
+是线程安全的，所以可以操作单个 Redisson 连接来完成各种操作。
+
+==== 4. 数据结构
+
+Jedis 仅支持基本的数据类型如：String、Hash、List、Set、Sorted Set。
+
+Redisson 不仅提供了一系列的分布式 Java 常用对象，基本可以与 Java
+的基本数据结构通用，还提供了许多分布式服务，其中包括（BitSet, Set,
+Multimap, SortedSet, Map, List, Queue, BlockingQueue, Deque,
+BlockingDeque, Semaphore, Lock, AtomicLong, CountDownLatch, Publish /
+Subscribe, Bloom filter, Remote service, Spring cache, Executor service,
+Live Object service, Scheduler service）。
+
+在分布式开发中，Redisson 可提供更便捷的方法。
+
+==== 5. 第三方框架整合
+
+* Redisson 提供了和 Spring 框架的各项特性类似的，以 Spring XML
+的命名空间的方式配置 RedissonClient 实例和它所支持的所有对象和服务；
+* Redisson 完整的实现了 Spring 框架里的缓存机制；
+* Redisson 在 Redis 的基础上实现了 Java 缓存标准规范；
+* Redisson 为 Apache Tomcat 集群提供了基于 Redis
+的非黏性会话管理功能。该功能支持 Apache Tomcat 的 6、7 和 8 版。
+* Redisson 还提供了 Spring Session 会话管理器的实现。
+
+=== 怎么保证缓存和数据库数据的一致性
+
+=== Redis 持久化有几种方式
+
+Redis 为持久化提供了两种方式：
+
+* RDB：在指定的时间间隔能对你的数据进行快照存储。
+* AOF（append only
+file）：记录每次对服务器写的操作,当服务器重启的时候会重新执行这些命令来恢复原始的数据。
+
+=== Redis 怎么实现分布式锁
+
+=== Redis 分布式锁有什么缺陷
+
+=== Redis 如何做内存优化
+
+=== Redis 淘汰策略有哪些
+
+==== Redis 常见的性能问题有哪些该如何解决

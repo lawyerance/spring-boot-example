@@ -1,0 +1,24 @@
+= Java Web
+
+== JSP 和 servlet 有什么区别？
+
+[source,text]
+----
+JSP经编译后就变成了Servlet.（JSP的本质就是Servlet，JVM只能识别java的类，不能识别JSP的代码，Web容器将JSP的代码编译成JVM能够识别的java类）
+
+JSP更擅长表现于页面显示，servlet更擅长于逻辑控制。
+
+Servlet中没有内置对象，JSP中的内置对象都是必须通过HttpServletRequest对象，HttpServletResponse对象以及HttpServlet对象得到。
+
+JSP是Servlet的一种简化，使用JSP只需要完成程序员需要输出到客户端的内容，JSP中的Java脚本如何镶嵌到一个类中，由JSP容器完成。而Servlet则是个完整的Java类，这个类的Service方法用于生成对客户端的响应。
+----
+
+== JSP 有哪些内置对象？作用分别是什么？
+== 说一下 JSP 的 4 种作用域？
+== Session 和 Cookie 有什么区别？
+== 说一下 Session 的工作原理？
+== 如果客户端禁止 Cookie 能实现 Session 还能用吗？
+== Spring MVC 和 Struts 的区别是什么？
+== 如何避免 SQL 注入？
+== 什么是 XSS 攻击，如何避免？
+== 什么是 CSRF 攻击，如何避免？

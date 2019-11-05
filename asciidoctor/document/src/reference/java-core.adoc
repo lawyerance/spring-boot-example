@@ -1,0 +1,66 @@
+= Java核心技术
+:doctype: book
+:toc: left
+:toc-title: 目录
+:toclevels: 4
+:title-separator: -
+:sectnums:
+
+== 基础知识点
+
+include::java-core/chapter01.adoc[]
+
+== Java容器
+
+include::java-core/chapter02.adoc[]
+
+== 设计模式
+
+include::java-core/chapter03.adoc[]
+
+== 多线程
+
+include::java-core/chapter04.adoc[]
+
+== JVM
+
+include::java-core/chapter05.adoc[]
+
+== other
+
+=== Question and Answer
+
+==== 什么是反射
+
+JAVA 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为 java 语言的反射机制
+
+==== 什么是 Java 序列化什么情况下需要序列化
+
+==== 动态代理是什么有哪些应用
+
+==== 怎么实现动态代理
+
+==== 为什么要使用克隆
+
+==== 如何实现对象克隆
+
+==== 深拷贝和浅拷贝区别是什么
+
+==== throw 和 throws 的区别
+
+==== final、finally、finalize 有什么区别
+
+==== try-catch-finally 中哪个部分可以省略
+
+==== try-catch-finally 中，如果 catch 中 return 了，finally 还会执行吗
+
+==== 常见的异常类有哪些
+
+image:https://raw.githubusercontent.com/lawyerance/resources/master/interview/images/java/throwable.png[image]
+
+* 算术异常类：ArithmeticException 空指针异常类：NullPointerException
+* 类型强制转换异常：ClassCastException 数组负下标异常：NegativeArrayException
+* 数组下标越界异常：ArrayIndexOutOfBoundsException 违背安全原则异常：SecturityException
+* 文件已结束异常：EOFException 文件未找到异常：FileNotFoundException
+* 字符串转换为数字异常：NumberFormatException 操作数据库异常：SQLException
+* 输入输出异常：IOException 方法未找到异常：NoSuchMethodException

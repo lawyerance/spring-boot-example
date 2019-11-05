@@ -1,0 +1,19 @@
+= network correlation technique
+
+== TCP/UDP
+include::network/chapter01.adoc[]
+
+== HTTP
+include::network/chapter02.adoc[]
+
+== Network
+
+* HTTP 响应码 301 和 302 代表的是什么？有什么区别？
+* forward 和 redirect 的区别？
+* 简述 TCP 和 UDP 的区别？
+* TCP 为什么要三次握手，两次不行吗？为什么？
+* 说一下 TCP 粘包是怎么产生的？
+* OSI 的七层模型都有哪些？
+* Get 和 Post 请求有哪些区别？
+* 如何实现跨域？
+* 说一下 JSONP 实现原理？

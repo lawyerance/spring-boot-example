@@ -30,16 +30,18 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
+ext {
+    docsPath = "${projectDir}/src/reference/"
+}
 
 asciidoctor {
-    baseDir(file("${projectDir}/src/docs/"))
-    sourceDir(file("${projectDir}/src/docs/"))
+    baseDir = file(docsPath)
+    sourceDir = file(docsPath)
     sources {
-        include 'index.adoc'
+        include '*.adoc'
     }
     asciidoctorj {
         version = '2.1.0'
-
     }
     attributes = [
             doctype    : 'book',
