@@ -8,7 +8,7 @@
 
 == 基础知识点
 
-include::java-core/chapter01.adoc[]
+include::./java-core/chapter01.adoc[]
 
 == Java容器
 
