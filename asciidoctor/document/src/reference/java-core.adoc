@@ -5,6 +5,7 @@
 :toclevels: 4
 :title-separator: -
 :sectnums:
+:allow-uri-read:
 :include-path: https://raw.githubusercontent.com/lawyerance/spring-boot-example/master/asciidoctor/document/src/reference/
 
 == 基础知识点
