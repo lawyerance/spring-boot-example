@@ -5,10 +5,11 @@
 :toclevels: 4
 :title-separator: -
 :sectnums:
+:include-path: https://github.com/lawyerance/spring-boot-example/blob/master/asciidoctor/document/src/reference/
 
 == 基础知识点
 
-include::./java-core/chapter01.adoc[]
+include::{include-path}java-core/chapter01.adoc[]
 
 == Java容器
 
