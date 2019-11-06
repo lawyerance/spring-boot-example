@@ -1,8 +1,18 @@
 = 中间件(IDC)
+:doctype: book
+:toc: left
+:toc-title: 目录
+:toclevels: 4
+:title-separator: -
+:sectnums:
+:allow-uri-read: ''
+:include-path:
 
 == RabbitMQ
 
-* RabbitMQ 的使用场景有哪些？
+=== Question and Answer
+
+==== RabbitMQ 的使用场景有哪些？
 
 [source,text]
 ----
@@ -14,7 +24,7 @@
 6.跨局域网，甚至跨城市的通讯（CDN行业），比如北京机房与广州机房的应用程序的通信。
 ----
 
-* RabbitMQ 有哪些重要的角色？
+==== RabbitMQ 有哪些重要的角色？
 
 [source,text]
 ----
@@ -163,32 +173,33 @@ RabbitMQ 对集群的停止的顺序是有要求的，应该先关闭内存节�
 
 == Kafka
 
-* Kafka 可以脱离 ZooKeeper 单独使用吗？为什么？
+=== Question and Answer
+
+==== Kafka 可以脱离 ZooKeeper 单独使用吗？为什么？
 
 [source,text]
 ----
 ----
 
-* Kafka 有几种数据保留的策略？
+==== Kafka 有几种数据保留的策略？
 
 [source,text]
 ----
 ----
 
-* Kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了
-10G，这个时候 Kafka 将如何处理？
+==== Kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 Kafka 将如何处理？
 
 [source,text]
 ----
 ----
 
-* 什么情况会导致 Kafka 运行变慢？
+==== 什么情况会导致 Kafka 运行变慢？
 
 [source,text]
 ----
 ----
 
-* 使用 Kafka 集群需要注意什么？
+==== 使用 Kafka 集群需要注意什么？
 
 [source,text]
 ----
@@ -196,39 +207,41 @@ RabbitMQ 对集群的停止的顺序是有要求的，应该先关闭内存节�
 
 == ZooKeeper
 
-* ZooKeeper 是什么？
+=== Question and Answer
+
+==== ZooKeeper 是什么？
 
 [source,text]
 ----
 ----
 
-* ZooKeeper 都有哪些功能？
+==== ZooKeeper 都有哪些功能？
 
 [source,text]
 ----
 ----
 
-* ZooKeeper 有几种部署模式？
+==== ZooKeeper 有几种部署模式？
 
 [source,text]
 ----
 ----
 
-* ZooKeeper 怎么保证主从节点的状态同步？
+==== ZooKeeper 怎么保证主从节点的状态同步？
 
 [source,text]
 ----
 ----
 
-* 集群中为什么要有主节点？
+==== 集群中为什么要有主节点？
 
 [source,text]
 ----
 ----
 
-* 集群中有 3 台服务器，其中一个节点宕机，这个时候 ZooKeeper
-还可以使用吗？
-* 说一下 ZooKeeper 的通知机制？
+==== 集群中有 3 台服务器，其中一个节点宕机，这个时候 ZooKeeper 还可以使用吗？
+
+==== 说一下 ZooKeeper 的通知机制？
 
 [source,text]
 ----

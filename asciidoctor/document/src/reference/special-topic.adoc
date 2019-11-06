@@ -1,4 +1,12 @@
 = Special Topic
+:doctype: book
+:toc: left
+:toc-title: 目录
+:toclevels: 4
+:title-separator: -
+:sectnums:
+:allow-uri-read: ''
+:include-path:
 
 == Zookeeper
 

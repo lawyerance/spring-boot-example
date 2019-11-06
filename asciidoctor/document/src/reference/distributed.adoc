@@ -1,15 +1,25 @@
 = Distributed
+:doctype: book
+:toc: left
+:toc-title: 目录
+:toclevels: 4
+:title-separator: -
+:sectnums:
+:allow-uri-read: ''
+:include-path:
 
 == Netty
 
-=== Netty 是什么
+=== Question and Answer
+
+==== Netty 是什么
 
 [source,text]
 ----
 Netty 是一款基于 NIO（Nonblocking I/O，非阻塞IO）开发的网络通信框架，对比于 BIO（Blocking I/O，阻塞IO），他的并发性能得到了很大提高。难能可贵的是，在保证快速和易用性的同时，并没有丧失可维护性和性能等优势。
 ----
 
-=== Netty 的特点是什么
+==== Netty 的特点是什么
 
 [source,text]
 ----
@@ -18,7 +28,7 @@ Netty 是一款基于 NIO（Nonblocking I/O，非阻塞IO）开发的网络通�
 封装好：Netty 封装了 NIO 操作的很多细节，提供了易于使用调用接口。
 ----
 
-=== 什么是 Netty 的零拷贝
+==== 什么是 Netty 的零拷贝
 
 [source,text]
 ----
@@ -28,7 +38,7 @@ Netty 提供了组合 Buffer 对象，可以聚合多个 ByteBuffer 对象，用
 Netty 的文件传输采用了 transferTo 方法，它可以直接将文件缓冲区的数据发送到目标 Channel，避免了传统通过循环 write 方式导致的内存拷贝问题。
 ----
 
-=== Netty 的优势有哪些
+==== Netty 的优势有哪些
 
 [source,text]
 ----
@@ -40,14 +50,14 @@ Netty 的文件传输采用了 transferTo 方法，它可以直接将文件缓�
 社区活跃：Netty 是活跃的开源项目，版本迭代周期短，bug 修复速度快。
 ----
 
-=== Netty 的应用场景有哪些
+==== Netty 的应用场景有哪些
 
 [source,text]
 ----
 典型的应用有：阿里分布式服务框架 Dubbo，默认使用 Netty 作为基础通信组件，还有 RocketMQ 也是使用 Netty 作为通讯的基础。
 ----
 
-=== Netty 高性能表现在哪些方面
+==== Netty 高性能表现在哪些方面
 
 [source,text]
 ----
@@ -58,14 +68,14 @@ IO 线程模型：同步非阻塞，用最少的资源做更多的事。
 高性能序列化协议：支持 protobuf 等高性能序列化协议。
 ----
 
-=== Netty 和 Tomcat 的区别
+==== Netty 和 Tomcat 的区别
 
 [source,text]
 ----
 Netty 和 Tomcat 最大的区别就在于通信协议，Tomcat 是基于 http 协议的，他的实质是一个基于 http 协议的web容器，但是 Netty 不一样，他能通过编程自定义各种协议，因为 Netty 能够自己编码/解码字节流，完成类似Redis 访问的功能，这就是 Netty 和 Tomcat 最大的区别。
 ----
 
-=== Netty 中有那种重要组件
+==== Netty 中有那种重要组件
 
 [source,text]
 ----
@@ -76,7 +86,7 @@ ChannelHandler：充当了所有处理入站和出站数据的逻辑容器。Cha
 ChannelPipeline：为 ChannelHandler 链提供了容器，当 channel 创建时，就会被自动分配到它专属的 ChannelPipeline，这个关联是永久性的。
 ----
 
-=== Netty 发送消息有几种方式
+==== Netty 发送消息有几种方式
 
 [source,text]
 ----
@@ -85,14 +95,14 @@ Netty 有两种发送消息的方式：
 写入和 ChannelHandler 绑定的 ChannelHandlerContext 中，消息从 ChannelPipeline 中的下一个 ChannelHandler 中移动。
 ----
 
-=== 默认情况 Netty 起多少线程何时启动
+==== 默认情况 Netty 起多少线程何时启动
 
 [source,text]
 ----
 Netty 默认是 CPU 处理器数的两倍，bind 完之后启动。
 ----
 
-=== Netty 支持哪些心跳类型设置
+==== Netty 支持哪些心跳类型设置
 
 [source,text]
 ----

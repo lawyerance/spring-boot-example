@@ -43,6 +43,7 @@ asciidoctor {
     asciidoctorj {
         version = '2.1.0'
     }
+
     attributes = [
             doctype    : 'book',
             toc        : 'left',
