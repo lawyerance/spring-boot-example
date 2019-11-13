@@ -246,3 +246,8 @@ RabbitMQ 对集群的停止的顺序是有要求的，应该先关闭内存节�
 [source,text]
 ----
 ----
+
+
+'''
+
+link:https://github.com/lawyerance/spring-boot-example/tree/master/asciidoctor/document[首页]  link:distributed.adoc[上一页] link:special-topic.adoc[下一页] link:special-topic.adoc[末页]

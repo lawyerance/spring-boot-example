@@ -270,3 +270,7 @@ DI 是 Spring 使用的方式，容器负责组件的装配。
 
 ==== Spring Bean 初始化
 
+
+'''
+
+link:https://github.com/lawyerance/spring-boot-example/tree/master/asciidoctor/document[首页]  link:database-and-cache.adoc[上一页] link:distributed.adoc[下一页] link:special-topic.adoc[末页]
