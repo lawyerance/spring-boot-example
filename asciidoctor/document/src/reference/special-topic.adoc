@@ -16,4 +16,4 @@
 
 '''
 
-link:https://github.com/lawyerance/spring-boot-example/tree/master/asciidoctor/document[首页]  link:idc.adoc[上一页] [下一页] link:###[末页]
+link:https://github.com/lawyerance/spring-boot-example/tree/master/asciidoctor/document[首页]  link:idc.adoc[上一页] 下一页 link:###[末页]
