@@ -259,31 +259,6 @@ public class FutureThread extends FutureTask<Void> {
 
 == Question and Answer
 
-=== JDK 和 JRE
-
-- JDK：Java Development Kit 的简称，java 开发工具包，提供了 java 的开发环境和运行环境。
-- JRE：Java Runtime Environment 的简称，java 运行环境，为 java 的运行提供了所需环境。
-
- 具体来说 JDK 其实包含了 JRE，同时还包含了编译 java 源码的编译器 javac，还包含了很多 java 程序调试和分析的工具。简单来说：如果你需要运行 java 程序，只需安装 JRE 就可以了，如果你需要编写 java 程序，需要安装 JDK。
-
-=== == 和 equals 的区别是什么
-
- 基本类型和引用类型 == 的作用效果稍有不同：基本类型比较的是值是否相等，引用类型比较引用是否相等；equals 本质上就是==，只是对于 String 和 Integer 一类的对象，复写了 equals 方法，将比较变成了值比较
-
-=== 两个对象的 hashCode()相同，则 equals()也一定为 true，对吗
-
-    不对，在散列表中，hashCode()相等即两个键值对的哈希值相等，然而哈希值相等，并不一定能得出键值对相等。
-
-=== final 在 Java 中有什么作用
-
-- final 修饰的类叫最终类，该类不能被继承。
-- final 修饰的方法不能被重写。
-- final 修饰的变量叫常量，常量必须初始化，初始化之后值就不能被修改。
-
-=== Java 中的 Math.round(-1.5) 等于多少.
-
- -1，向上取整
-
 === String 属于基础的数据类型吗
 
  不属于,8 种基本类型：byte, boolean, char, short, int, float, long, double
@@ -322,27 +297,6 @@ public class FutureThread extends FutureTask<Void> {
 
  使用 StringBuilder 或者 stringBuffer 的 reverse() 方法。
 
-=== String 类的常用方法都有那些
-
-[source,text]
-----
-indexOf()：返回指定字符的索引。
-charAt()：返回指定索引处的字符。
-replace()：字符串替换。
-trim()：去除字符串两端空白。
-split()：分割字符串，返回一个分割后的字符串数组。
-getBytes()：返回字符串的 byte 类型数组。
-length()：返回字符串长度。
-toLowerCase()：将字符串转成小写字母。
-toUpperCase()：将字符串转成大写字符。
-substring()：截取字符串。
-equals()：字符串比较。
-----
-
-=== 抽象类必须要有抽象方法吗
-
- 不需要
-
 === 普通类和抽象类有哪些区别
 
  普通类不能包含抽象方法，抽象类可以包含抽象方法; 抽象类不能直接实例化，普通类可以直接实例化
@@ -353,7 +307,14 @@ equals()：字符串比较。
 
 === 接口和抽象类有什么区别
 
- 接口能够多实现，而抽象类只能单独被继承，其本质就是，一个类能继承多个接口，而只能继承一个抽象类。 2=== 方法上，抽象类的方法可以用 abstract 和 public 或者 protect 修饰。而接口默认为 public abttact 修饰。 3=== 抽象类的方法可以有需要子类实现的抽象方法，也可以有具体的方法。而接口在老版本的 jdk 中，只能有抽象方法，但是 Java8 版本的接口中，接口可以带有默认方法。 4=== 属性上，抽象类可以用各种各样的修饰符修饰。而接口的属性是默认的 public static final 5=== 抽象类可以含有构造方法，接口不能含有构造方法。 6=== 设计层面上，另外一点，抽象类可以是一个模板，因为可以自己带集体方法，所以要加一个实现类都能有的方法，直接在抽象类中写出并实现就好，接口在以前的版本则不行。新版本 Java8 才有默认方法。 7=== 既然说到 Java 8 那么就来说明，Java8 中的接口中的默认方法是可以被多重继承的。而抽象类不行。 8=== 另外，接口只能继承接口。而抽象类可以继承普通的类，也能继承接口和抽象类。
+. 接口能够多实现，而抽象类只能单独被继承，其本质就是，一个类能继承多个接口，而只能继承一个抽象类。
+. 方法上，抽象类的方法可以用 abstract 和 public 或者 protect 修饰。而接口默认为 public abttact 修饰
+. 抽象类的方法可以有需要子类实现的抽象方法，也可以有具体的方法。而接口在老版本的 jdk 中，只能有抽象方法，但是 Java8 版本的接口中，接口可以带有默认方法
+. 属性上，抽象类可以用各种各样的修饰符修饰。而接口的属性是默认的 public static final
+. 抽象类可以含有构造方法，接口不能含有构造方法
+. 设计层面上，另外一点，抽象类可以是一个模板，因为可以自己带集体方法，所以要加一个实现类都能有的方法，直接在抽象类中写出并实现就好，接口在以前的版本则不行。新版本 Java8 才有默认方法
+. 既然说到 Java 8 那么就来说明，Java8 中的接口中的默认方法是可以被多重继承的。而抽象类不行
+. 另外，接口只能继承接口。而抽象类可以继承普通的类，也能继承接口和抽象类。
 
 === Java 中 IO 流分为几种
 
@@ -712,7 +673,7 @@ JAVA 反射机制是在运行状态中，对于任意一个类，都能够知道
 
 === 常见的异常类有哪些
 
-image:https://raw.githubusercontent.com/lawyerance/resources/master/interview/images/java/throwable.png[image]
+image:./images/throwable.png[image]
 
 * 算术异常类：ArithmeticException 空指针异常类：NullPointerException
 * 类型强制转换异常：ClassCastException 数组负下标异常：NegativeArrayException

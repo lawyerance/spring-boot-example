@@ -8,25 +8,23 @@
 :allow-uri-read: ''
 :include-path:
 
-== Netty
+== Knowledge Point
 
-=== Question and Answer
+=== Netty
 
-==== Netty 是什么
+==== Netty介绍
 
-[source,text]
 ----
 Netty 是一款基于 NIO（Nonblocking I/O，非阻塞IO）开发的网络通信框架，对比于 BIO（Blocking I/O，阻塞IO），他的并发性能得到了很大提高。难能可贵的是，在保证快速和易用性的同时，并没有丧失可维护性和性能等优势。
-----
 
-==== Netty 的特点是什么
-
-[source,text]
-----
 高并发：Netty 是一款基于 NIO（Nonblocking IO，非阻塞IO）开发的网络通信框架，对比于 BIO（Blocking I/O，阻塞IO），他的并发性能得到了很大提高。
 传输快：Netty 的传输依赖于零拷贝特性，尽量减少不必要的内存拷贝，实现了更高效率的传输。
 封装好：Netty 封装了 NIO 操作的很多细节，提供了易于使用调用接口。
 ----
+
+== Question and Answer
+
+=== Netty
 
 ==== 什么是 Netty 的零拷贝
 
@@ -110,6 +108,8 @@ readerIdleTime：为读超时时间（即测试端一定时间内未接受到被
 writerIdleTime：为写超时时间（即测试端一定时间内向被测试端发送消息）。
 allIdleTime：所有类型的超时时间。
 ----
+
+== Advance
 
 '''
 

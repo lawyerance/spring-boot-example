@@ -8,13 +8,14 @@
 :allow-uri-read: ''
 :include-path:
 
-== JSP 和 Servlet
+== Knowledge Point
 
-=== Question and Answer
+== Question and Answer
+
+=== JSP 和 Servlet
 
 ==== JSP 和 servlet 有什么区别？
 
-[source,text]
 ----
 JSP经编译后就变成了Servlet.（JSP的本质就是Servlet，JVM只能识别java的类，不能识别JSP的代码，Web容器将JSP的代码编译成JVM能够识别的java类）
 
@@ -42,6 +43,8 @@ JSP是Servlet的一种简化，使用JSP只需要完成程序员需要输出到�
 ==== 什么是 XSS 攻击，如何避免？
 
 ==== 什么是 CSRF 攻击，如何避免？
+
+== Advance
 
 '''
 
