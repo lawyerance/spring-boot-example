@@ -42,16 +42,6 @@ image:images/four-times-wave.png[image]
 * 第三次挥手：主机 2 向主机 1 发送 FIN 报文段，请求关闭连接，同时主机 2 进入 CLOSE_WAIT 状态；
 * 第四次挥手：主机 1 收到主机 2 发送的 FIN 报文段，向主机 2 发送 ACK 报文段，然后主机 1 进入 TIME_WAIT 状态；主机 2 收到主机 1 的 ACK 报文段以后，就关闭连接；此时，主机 1 等待 2MSL 后依然没有收到回复，则证明 Server 端已正常关闭，那好，主机 1 也可以关闭连接了
 
-=== Question and Answer
-
-==== TCP 和 UDP 区别
-
-* TCP 面向连接；UDP 面向无连接
-* TCP 保证数据正确性；UDP 可能丢包
-* TCP 传输速度慢；UDP 速度快
-* 每一条 TCP 连接只能是点到点的；UDP 支持一对一，一对多，多对一和多对多的交互通信
-* TCP 对系统资源要求较多，UDP 对系统资源要求较少。
-
 [source,text]
 ----
 1.为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？
@@ -116,6 +106,14 @@ HTTP 是无状态的，它的底层协议是由状态的 TCP，但是 HTTP 的�
 == Question and Answer
 
 === Network
+
+==== TCP 和 UDP 区别
+
+* TCP 面向连接；UDP 面向无连接
+* TCP 保证数据正确性；UDP 可能丢包
+* TCP 传输速度慢；UDP 速度快
+* 每一条 TCP 连接只能是点到点的；UDP 支持一对一，一对多，多对一和多对多的交互通信
+* TCP 对系统资源要求较多，UDP 对系统资源要求较少。
 
 ==== HTTP 响应码 301 和 302 代表的是什么？有什么区别？
 
