@@ -66,9 +66,7 @@ image:images/four-times-wave.png[image]
 
 ----
 
-== HTTP
-
-=== Knowledge Point
+=== HTTP
 
 ==== 简介
 
