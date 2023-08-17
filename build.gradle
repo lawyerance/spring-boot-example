@@ -2,8 +2,10 @@ buildscript {
 
     repositories {
         mavenLocal()
-        jcenter()
         mavenCentral()
+        maven {
+             url "https://mirrors.163.com/maven/repository/maven-central"
+        }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"

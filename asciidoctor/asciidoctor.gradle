@@ -42,7 +42,6 @@ subprojects {
         implementation libraries.swagger2
         implementation libraries.snakeyaml
 
-        compileOnly("pers.lyks:xar-api:1.0.0-SNAPSHOT")
     }
 
     if (project.name.startsWith('spring-boot')) {
